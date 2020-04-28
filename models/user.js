@@ -2,8 +2,7 @@ var mongoose = require('mongoose')
 
 var userSchema = new mongoose.Schema({
     name: String,
-    pass: String,
-    nickName: String
+    pass: String
 })
 
 // users 为指定的collections集合
