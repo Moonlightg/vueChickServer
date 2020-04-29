@@ -3,9 +3,9 @@ const router = express.Router();
 //相当于后台的路由，所有的后台处理都需要从这里经过
 
 //const login = require("login");
-const register = require("register");
+const userApi = require("../api/user-api");
 
-//router.use("/login",login);
-router.use("/product",product);
+router.post('/register',userApi.register) //注册
+router.post('/login',userApi.login) //登录
 
 module.exports = router;

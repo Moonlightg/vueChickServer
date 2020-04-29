@@ -3,7 +3,8 @@ var express = require('express')
 // 创建app对象
 var app = new express()
 
-var router = require('./route/users')
+// 引入 api 路由
+var router = require('./route/index')
 
 /* 使用mongoose类库 */
 var mongoose = require('mongoose')

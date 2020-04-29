@@ -1,15 +1,15 @@
-var express = require('express')
-var router = express.Router()
+// var express = require('express')
+// var router = express.Router()
 
-var User = require('../models/user')
+const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 // 密钥
 const SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
 
+
 // 注册
-router.post('/register', (req, res) => {
-    //查询数据库中username= req.body.username 的数据
-    User.find({username: req.body.username},(err,data) => {
+exports.register = (req, res) => {
+     User.find({username: req.body.username},(err,data) => {
         if(err){
             res.send({'status': 1002, 'message': '查询失败', 'data': err});
         }else{
@@ -32,16 +32,15 @@ router.post('/register', (req, res) => {
             }
         }
     });
-});
+}
 
-// 登录
-router.post('/login', (req, res) => {
+// 注册
+exports.login = (req, res) => {
     // 判断用户名和密码是否和数据库的相同
     User.findOne({ username:req.body.username, pass:req.body.pass}, (err, data) => {
         if (err) {
             return res.send({'status': 1002, 'message': '查询失败', 'data': err});
         } else {
-            console.log('查询成功'+data);
             if(data === null) {
                 res.send({'status': 422, 'message': '用户名或密码错误!'});
             } else {
@@ -55,11 +54,9 @@ router.post('/login', (req, res) => {
             
         }
     });
-});
+}
 
 // 获取用户信息
-router.get('/users/info',(req, res) => {
-    res.json({data: req.body});
-});
-
-module.exports = router
+// router.get('/users/info',(req, res) => {
+//     res.json({data: req.body});
+// });
