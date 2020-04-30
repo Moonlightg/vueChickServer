@@ -20,7 +20,8 @@ exports.register = (req, res) => {
             } else {
                 const user = new User({
                     username: req.body.username,
-                    pass: req.body.pass
+                    pass: req.body.pass,
+                    money: 1000
                 });
                 user.save((err, docs) => {
                     if (err) {
@@ -34,7 +35,7 @@ exports.register = (req, res) => {
     });
 }
 
-// 注册
+// 登录
 exports.login = (req, res) => {
     // 判断用户名和密码是否和数据库的相同
     User.findOne({ username:req.body.username, pass:req.body.pass}, (err, data) => {
