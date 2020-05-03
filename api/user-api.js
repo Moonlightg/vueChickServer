@@ -21,7 +21,8 @@ exports.register = (req, res) => {
                 const user = new User({
                     username: req.body.username,
                     pass: req.body.pass,
-                    money: 1000
+                    money: 1000,
+                    level: 1
                 });
                 user.save((err, docs) => {
                     if (err) {
