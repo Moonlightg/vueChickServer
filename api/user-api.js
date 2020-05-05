@@ -22,7 +22,9 @@ exports.register = (req, res) => {
                     username: req.body.username,
                     pass: req.body.pass,
                     money: 1000,
-                    level: 1
+                    level: 1,
+                    eat: false,
+                    eatEndTime: 0
                 });
                 user.save((err, docs) => {
                     if (err) {
