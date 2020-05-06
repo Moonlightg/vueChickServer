@@ -1,0 +1,27 @@
+[
+{
+    "_id" : ObjectId("5eb033268ffa000bd194b101"),
+    "name" : "小麦",
+    "price" : 10,
+    "eatTime" : 15000,
+    "exp" : 100,
+    "num" : 0,
+    "unlock" : 0,
+    "unlockPrice": 1,
+    "img": "food1.png",
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("5eb033268ffa000bd194b102"),
+    "id": 2,
+    "name" : "三叶草",
+    "price" : 100,
+    "eatTime" : 50000,
+    "exp" : 600,
+    "num" : 0,
+    "unlock" : 0,
+    "unlockPrice": 100,
+    "img": "food2.png",
+    "__v" : 0
+}
+]

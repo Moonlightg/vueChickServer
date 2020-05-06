@@ -4,8 +4,11 @@ const router = express.Router();
 
 //const login = require("login");
 const userApi = require("../api/user-api");
+const goodsApi = require("../api/goods-api");
 
 router.post('/register',userApi.register) //注册
 router.post('/login',userApi.login) //登录
+router.get('/getGoods',goodsApi.getGoods) //获取商品列表
+
 
 module.exports = router;

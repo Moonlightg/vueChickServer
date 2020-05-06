@@ -13,5 +13,5 @@ var goodsSchema = new mongoose.Schema({
     img: String        			// 图片
 })
 
-// users 为指定的collections集合
-module.exports = mongoose.model('Goods', chickSchema, 'goods')
+// goods 为指定的collections集合
+module.exports = mongoose.model('Goods', goodsSchema, 'goods')
