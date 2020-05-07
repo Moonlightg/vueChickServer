@@ -1,4 +1,3 @@
-[
 {
     "_id" : ObjectId("5eb033268ffa000bd194b101"),
     "name" : "小麦",
@@ -10,8 +9,7 @@
     "unlockPrice": 1,
     "img": "food1.png",
     "__v" : 0
-},
-{
+},{
     "_id" : ObjectId("5eb033268ffa000bd194b102"),
     "id": 2,
     "name" : "三叶草",
@@ -23,5 +21,64 @@
     "unlockPrice": 100,
     "img": "food2.png",
     "__v" : 0
+},{
+    "_id" : ObjectId("5eb033268ffa000bd194b103"),
+    "id": 3,
+    "name" : "橄榄",
+    "price" : 150,
+    "eatTime" : 120000,
+    "exp" : 800,
+    "num" : 0,
+    "unlock" : 0,
+    "unlockPrice": 500,
+    "img": "food3.png",
+    "__v" : 0
+},{
+    "_id" : ObjectId("5eb033268ffa000bd194b104"),
+    "id": 4,
+    "name" : "面包",
+    "price" : 450,
+    "eatTime" : 160000,
+    "exp" : 1000,
+    "num" : 0,
+    "unlock" : 0,
+    "unlockPrice": 1000,
+    "img": "food4.png",
+    "__v" : 0
+},{
+    "_id" : ObjectId("5eb033268ffa000bd194b105"),
+    "id": 5,
+    "name" : "葡萄",
+    "price" : 650,
+    "eatTime" : 170000,
+    "exp" : 1100,
+    "num" : 0,
+    "unlock" : 0,
+    "unlockPrice": 1300,
+    "img": "food5.png",
+    "__v" : 0
+},{
+    "_id" : ObjectId("5eb033268ffa000bd194b106"),
+    "id": 6,
+    "name" : "豆腐",
+    "price" : 750,
+    "eatTime" : 180000,
+    "exp" : 1200,
+    "num" : 0,
+    "unlock" : 0,
+    "unlockPrice": 1500,
+    "img": "food6.png",
+    "__v" : 0
+},{
+    "_id" : ObjectId("5eb033268ffa000bd194b107"),
+    "id": 7,
+    "name" : "大包菜",
+    "price" : 750,
+    "eatTime" : 180000,
+    "exp" : 1200,
+    "num" : 0,
+    "unlock" : 0,
+    "unlockPrice": 1500,
+    "img": "food7.png",
+    "__v" : 0
 }
-]

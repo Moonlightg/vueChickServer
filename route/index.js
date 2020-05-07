@@ -8,7 +8,8 @@ const goodsApi = require("../api/goods-api");
 
 router.post('/register',userApi.register) //注册
 router.post('/login',userApi.login) //登录
-router.get('/getGoods',goodsApi.getGoods) //获取商品列表
+router.get('/getGoods',goodsApi.getGoods) //获取默认商品列表
+router.get('/getUserGoods',goodsApi.getUserGoods) //获取用户商品列表
 
 
 module.exports = router;
