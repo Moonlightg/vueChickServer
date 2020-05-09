@@ -15,8 +15,9 @@ exports.getGoods = (req, res) => {
 
 // 获取用户商品列表
 exports.getUserGoods = (req, res) => {
-    console.log(req.query);
-    userGood.find({},(err,data) => {
+    const id = req.query.id; // 获取请求传过来的用户id
+    console.log(id);
+    userGood.find({openId: id},(err,data) => {
         if (err) {
             res.send({'code': 0, 'msg': '查询失败', 'data': err});
         } else {

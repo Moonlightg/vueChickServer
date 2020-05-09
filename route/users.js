@@ -20,7 +20,8 @@ router.post('/register', (req, res) => {
             } else {
                 const user = new User({
                     username: req.body.username,
-                    pass: req.body.pass
+                    pass: req.body.pass,
+                    
                 });
                 user.save((err, docs) => {
                     if (err) {
