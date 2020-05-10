@@ -27,3 +27,22 @@ exports.getUserGoods = (req, res) => {
     })
 }
 
+// 解锁商品
+exports.unlock = (req, res) => {
+    console.log("req.body");
+    console.log(req.body);
+    const good = new userGood({
+        openId: req.body.openId,
+        name: req.body.name,
+        num: 0,
+        unlock: 1
+    });
+    good.save((err, docs) => {
+        if (err) {
+            res.send({ 'code': 1, 'errorMsg': '解锁失败' });
+        } else {
+            res.send({ "code": 0, 'message': '解锁成功' });
+        }
+    });
+}
+

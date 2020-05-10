@@ -3,6 +3,7 @@
     "openId" : "5eb033268ffa000bd194b449",
     "name" : "小麦",
     "num" : 3,
+    "unlock": 1,
     "__v" : 0
 },
 {
@@ -10,6 +11,7 @@
     "openId" : "5eb033268ffa000bd194b449",
     "name" : "三叶草",
     "num" : 4,
+    "unlock": 1,
     "__v" : 0
 },
 {
@@ -17,6 +19,7 @@
     "openId" : "5eb2ac8e8ffa000bd194b44a",
     "name" : "橄榄",
     "num" : 3,
+    "unlock": 1,
     "__v" : 0
 },
 {
@@ -24,5 +27,6 @@
     "openId" : "5eb2ac8e8ffa000bd194b44a",
     "name" : "面包",
     "num" : 4,
+    "unlock": 1,
     "__v" : 0
 }
