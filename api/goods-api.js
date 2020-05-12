@@ -1,3 +1,4 @@
+const User = require('../models/user');
 const Good = require('../models/goods');
 const userGood = require('../models/usergoods')
 
@@ -37,6 +38,16 @@ exports.unlock = (req, res) => {
         num: 0,
         unlock: 1
     });
+    //const user = 
+    User.findByIdAndUpdate(req.body.openId,{
+        money: req.body.money
+    }, function (err,ret) {
+        if(err) {
+            console.log('更新失败')
+        } else {
+            console.log('更新成功')
+        }
+    })
     good.save((err, docs) => {
         if (err) {
             res.send({ 'code': 1, 'errorMsg': '解锁失败' });
