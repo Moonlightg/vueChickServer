@@ -17,6 +17,7 @@ exports.getGoods = (req, res) => {
 // 获取用户商品列表
 exports.getUserGoods = (req, res) => {
     const id = req.query.id; // 获取请求传过来的用户id
+    console.log(req.query);
     console.log(id);
     userGood.find({openId: id},(err,data) => {
         if (err) {
@@ -38,7 +39,6 @@ exports.unlock = (req, res) => {
         num: 0,
         unlock: 1
     });
-    //const user = 
     User.findByIdAndUpdate(req.body.openId,{
         money: req.body.money
     }, function (err,ret) {

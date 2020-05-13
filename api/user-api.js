@@ -53,7 +53,7 @@ exports.login = (req, res) => {
                     id:String(data._id)
                 },SECRET)
 
-                return res.send({ 'code': 0, message: '登录成功', data: data, token: token});
+                return res.send({ 'code': 0, message: '登录成功', data, token});
             }
             
         }
