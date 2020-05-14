@@ -11,6 +11,7 @@ router.post('/login',userApi.login) //登录
 router.get('/getGoods',goodsApi.getGoods) //获取默认商品列表
 router.get('/getUserGoods',goodsApi.getUserGoods) //获取用户商品列表
 router.post('/unlock',goodsApi.unlock) //解锁商品
+router.post('/closingGood',goodsApi.closingGood) // 购买商品
 
 
 module.exports = router;
