@@ -2,6 +2,7 @@
 // var router = express.Router()
 
 const User = require('../models/user')
+const Chick = require('../models/chick')
 const jwt = require('jsonwebtoken')
 // 密钥
 const SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
@@ -30,7 +31,27 @@ exports.register = (req, res) => {
                     if (err) {
                         res.send({ 'code': 1, 'errorMsg': '注册失败' });
                     } else {
-                        res.send({ "code": 0, 'message': '注册成功' });
+                        console.log("注册用户成功");
+                        console.log(docs);
+                        const chick = new Chick({
+                            openId: docs._id,
+                            exp: 0,
+                            upgradeExp: 100,
+                            level: 1,
+                            eat: false,
+                            eatTime: 0,
+                            eatEndTime: 0
+                        });
+                        chick.save((err, chick) => {
+                            if (err) {
+                                res.send({ 'code': 1, 'errorMsg': '创建小鸡失败' });
+                            } else {
+                                console.log("创建小鸡成功");
+                                console.log(chick);
+                                //res.send({ "code": 0, 'message': '创建小鸡成功', 'data': docs });
+                            }
+                        });
+                        res.send({ "code": 0, 'message': '注册成功', 'data': docs });
                     }
                 });
             }
@@ -64,3 +85,17 @@ exports.login = (req, res) => {
 // router.get('/users/info',(req, res) => {
 //     res.json({data: req.body});
 // });
+
+// 获取小鸡状态
+exports.getChick = (req, res) => {
+    console.log("req.query");
+    console.log(req.query);
+    Chick.find({openId: req.query.userId},(err,data) => {
+        if (err) {
+            res.send({'code': 0, 'msg': '查询失败', 'data': err});
+        } else {
+            console.log('查询小鸡成功'+data)
+            res.send({'code': 1, 'message': '查找小鸡成功', 'data': data });
+        }
+    })
+}

@@ -75,3 +75,21 @@ exports.closingGood = (req, res) => {
     });
 }
 
+// 获取小鸡状态
+exports.getChick = (req, res) => {
+    console.log("req.body");
+    console.log(req.body);
+    console.log("req.query");
+    console.log(req.query);
+    console.log("res");
+    console.log(res);
+    Chick.find({openId: req.query.userId},(err,data) => {
+        if (err) {
+            res.send({'code': 0, 'msg': '查询失败', 'data': err});
+        } else {
+            console.log('查询小鸡成功'+data)
+            res.send({'code': 1, 'message': '查找小鸡成功', 'data': data });
+        }
+    })
+}
+
