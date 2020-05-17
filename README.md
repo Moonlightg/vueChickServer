@@ -11,7 +11,9 @@
 | --------   | ----: | :----:  |
 | api/register|post|注册|
 | api/login   |post|登录|
-| api/getGoods |get|获取商品列表|
+| api/getChick   |get|获取用户小鸡状态|
+| api/getGoods   |get|获取默认商品列表|
 | api/getUserGoods|get|获取当前用户商品列表|
 | api/unlock|post|解锁商品|
+| api/closingGood|post|购买商品|
 
