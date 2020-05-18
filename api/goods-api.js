@@ -26,11 +26,24 @@ exports.getUserGoods = (req, res) => {
     })
 }
 
+// 获取用户背包食品列表
+exports.getUserFoods = (req, res) => {
+    userGood.find({openId: req.query.userId, num: {$gt: 0}},(err,data) => {
+        if (err) {
+            res.send({'code': 0, 'msg': '查询失败', 'data': err});
+        } else {
+            console.log('查询背包食物成功'+data)
+            res.send({ 'code': 1, 'data': data });
+        }
+    })
+}
+
 // 解锁商品
 exports.unlock = (req, res) => {
     const good = new userGood({
         openId: req.body.userId,
         name: req.body.name,
+        img: req.body.img,
         num: 0,
         unlock: 1
     });
