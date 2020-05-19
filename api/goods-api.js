@@ -41,11 +41,16 @@ exports.getUserFoods = (req, res) => {
 // 解锁商品
 exports.unlock = (req, res) => {
     const good = new userGood({
-        openId: req.body.userId,
-        name: req.body.name,
-        img: req.body.img,
-        num: 0,
-        unlock: 1
+        openId: req.body.userId,         
+        name: req.body.name,              
+        type: req.body.type,               
+        price: req.body.price,             
+        eatTime: req.body.eatTime,            
+        exp: req.body.exp,               
+        num: 0,               
+        unlock: 1,            
+        unlockPrice: req.body.unlockPrice,       
+        img: req.body.img         
     });
     User.findByIdAndUpdate(req.body.userId,{
         money: req.body.money
