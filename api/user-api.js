@@ -61,6 +61,9 @@ exports.register = (req, res) => {
 
 // 登录
 exports.login = (req, res) => {
+    //let obj = {};
+    let user = {};
+    let chick = {};
     // 判断用户名和密码是否和数据库的相同
     User.findOne({ username:req.body.username, pass:req.body.pass}, (err, data) => {
         if (err) {
@@ -74,7 +77,18 @@ exports.login = (req, res) => {
                     id:String(data._id)
                 },SECRET)
 
-                return res.send({ 'code': 0, message: '登录成功', data, token});
+                user = data;
+
+                // 查询小鸡信息
+                Chick.find({openId: String(user._id)},(err,docs) => {
+                    if (err) {
+                        res.send({'code': 0, 'msg': '查询失败', 'data': err});
+                    } else {
+                        console.log('查询小鸡成功'+docs)
+                        chick = docs[0];
+                        res.send({ 'code': 0, 'message': '登录成功', user, chick, token});
+                    }
+                })
             }
             
         }

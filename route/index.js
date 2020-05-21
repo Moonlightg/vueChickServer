@@ -14,6 +14,7 @@ router.get('/getUserGoods',goodsApi.getUserGoods) //获取用户商品列表
 router.get('/getUserFoods',goodsApi.getUserFoods) //获取用户背包食品列表
 router.post('/unlock',goodsApi.unlock) //解锁商品
 router.post('/closingGood',goodsApi.closingGood) // 购买商品
+router.post('/feeding',goodsApi.feeding) // 投喂食物
 
 
 module.exports = router;

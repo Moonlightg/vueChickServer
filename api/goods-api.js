@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Good = require('../models/goods');
-const userGood = require('../models/usergoods')
+const userGood = require('../models/usergoods');
+const Chick = require('../models/chick');
 
 // 获取默认商品列表
 exports.getGoods = (req, res) => {
@@ -93,21 +94,43 @@ exports.closingGood = (req, res) => {
     });
 }
 
-// 获取小鸡状态
-exports.getChick = (req, res) => {
-    console.log("req.body");
-    console.log(req.body);
-    console.log("req.query");
-    console.log(req.query);
-    console.log("res");
-    console.log(res);
-    Chick.find({openId: req.query.userId},(err,data) => {
-        if (err) {
-            res.send({'code': 0, 'msg': '查询失败', 'data': err});
+// 投喂食物
+exports.feeding = (req, res) => {
+    let chick = {};
+    let obj = {};
+    Chick.findOneAndUpdate({openId: req.body.userId},{
+        $set:{
+            eat: true,
+            eatTime: req.body.eatTime,
+            eatEndTime: req.body.eatEndTime
+        }},{
+            new: true
+        }, (err, docs) => {
+        if(err) {
+            console.log('投喂更新失败')
         } else {
-            console.log('查询小鸡成功'+data)
-            res.send({'code': 1, 'message': '查找小鸡成功', 'data': data });
+            console.log('投喂更新成功');
+            chick = docs;
+            userGood.findOneAndUpdate({
+                openId: req.body.userId, 
+                name: req.body.name
+            },{
+                $set:{
+                    num: req.body.num
+                }
+            },{
+                new: true
+            }, (err,data) => {
+                if (err) {
+                    res.send({'code': 0, 'msg': '投喂失败', 'data': err});
+                } else {
+                    obj.data = data;
+                    obj.chick = chick;
+                    res.send({ 'code': 1, 'message': '投喂成功', 'data': obj });
+                }
+            });
         }
-    })
+    });
+
 }
 
