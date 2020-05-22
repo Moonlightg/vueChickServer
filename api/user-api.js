@@ -1,6 +1,6 @@
 // var express = require('express')
 // var router = express.Router()
-
+const moment = require('moment')
 const User = require('../models/user')
 const Chick = require('../models/chick')
 const jwt = require('jsonwebtoken')
@@ -22,6 +22,8 @@ exports.register = (req, res) => {
                 const user = new User({
                     username: req.body.username,
                     pass: req.body.pass,
+                    creat_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+                    update_date: moment().format('YYYY-MM-DD HH:mm:ss'),
                     money: 1000,
                     level: 1,
                     eat: false,
@@ -40,7 +42,11 @@ exports.register = (req, res) => {
                             level: 1,
                             eat: false,
                             eatTime: 0,
-                            eatEndTime: 0
+                            eatEndTime: 0,
+                            eggNum: 0,
+                            eggProgress: 0,
+                            eggBase: 50,
+                            eggAddExps: 0
                         });
                         chick.save((err, chick) => {
                             if (err) {
@@ -110,6 +116,50 @@ exports.getChick = (req, res) => {
         } else {
             console.log('查询小鸡成功'+data)
             res.send({'code': 1, 'message': '查找小鸡成功', 'data': data });
+        }
+    })
+}
+
+// 更新小鸡状态
+exports.postChick = (req, res) => {
+    console.log("测试小鸡状态:");
+    console.log(req.body);
+    const {
+        openId,             
+        exp,                
+        upgradeExp,       
+        level,             
+        eat,               
+        eatTime,            
+        eatEndTime,         
+        eggExps,            
+        eggNum,             
+        eggProgress,        
+        eggBase,            
+        eggAddExps         
+        } = req.body
+    Chick.findOneAndUpdate({openId},{
+        $set:{
+            openId,             
+            exp,                
+            upgradeExp,       
+            level,             
+            eat,               
+            eatTime,            
+            eatEndTime,         
+            eggExps,            
+            eggNum,             
+            eggProgress,        
+            eggBase,            
+            eggAddExps 
+        }},{
+            new: true
+        }, (err,data) => {
+        if (err) {
+            res.send({'code': 0, 'msg': '更新小鸡失败', 'data': err});
+        } else {
+            console.log('查询小鸡成功'+data)
+            res.send({'code': 1, 'message': '更新小鸡成功', 'data': data });
         }
     })
 }

@@ -9,6 +9,7 @@ const goodsApi = require("../api/goods-api");
 router.post('/register',userApi.register) //注册
 router.post('/login',userApi.login) //登录
 router.get('/getChick',userApi.getChick) // 获取用户小鸡状态
+router.post('/postChick',userApi.postChick) // 更新小鸡信息
 router.get('/getGoods',goodsApi.getGoods) //获取默认商品列表
 router.get('/getUserGoods',goodsApi.getUserGoods) //获取用户商品列表
 router.get('/getUserFoods',goodsApi.getUserFoods) //获取用户背包食品列表
