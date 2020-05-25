@@ -22,7 +22,7 @@ exports.register = (req, res) => {
                 const user = new User({
                     username: req.body.username,
                     pass: req.body.pass,
-                    creat_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+                    register_date: moment().format('YYYY-MM-DD HH:mm:ss'),
                     update_date: moment().format('YYYY-MM-DD HH:mm:ss'),
                     money: 1000,
                     level: 1,
@@ -70,10 +70,18 @@ exports.register = (req, res) => {
 // 登录
 exports.login = (req, res) => {
     //let obj = {};
+    let newDate = moment().format('YYYY-MM-DD HH:mm:ss');
     let user = {};
     let chick = {};
     // 判断用户名和密码是否和数据库的相同
-    User.findOne({ username:req.body.username, pass:req.body.pass}, (err, data) => {
+    User.findOneAndUpdate({
+        username:req.body.username, 
+        pass:req.body.pass
+    },{
+        $set:{update_date:newDate}
+    },{
+        new: true
+    }, (err, data) => {
         if (err) {
             return res.send({'status': 1002, 'message': '查询失败', 'data': err});
         } else {
@@ -83,10 +91,8 @@ exports.login = (req, res) => {
                 // 生成token
                 const token = jwt.sign({
                     id:String(data._id)
-                },SECRET)
-
+                },SECRET);
                 user = data;
-
                 // 查询小鸡信息
                 Chick.find({openId: String(user._id)},(err,docs) => {
                     if (err) {
