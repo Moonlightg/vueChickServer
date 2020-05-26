@@ -2,79 +2,12 @@
     "_id" : ObjectId("5eb033268ffa000bd193c101"),
     "taskId" : "task1",
     "taskTitle" : "每天登录",
-    "reward" : 1000,
     "state" : false, // false 未完成, true 已完成
     "__v" : 0
 },{
     "_id" : ObjectId("5eb033268ffa000bd193c102"),
     "taskId" : "task2",
     "taskTitle" : "投喂3次小鸡",
-    "reward" : 1000,
     "state" : false, // false 未完成, true 已完成
-    "__v" : 0
-},{
-    "_id" : ObjectId("5eb033268ffa000bd193c103"),
-    "id": 3,
-    "name" : "橄榄",
-    "type" : 1,
-    "price" : 150,
-    "eatTime" : 120000,
-    "exp" : 800,
-    "num" : 0,
-    "unlock" : 0,
-    "unlockPrice": 500,
-    "img": "food3.png",
-    "__v" : 0
-},{
-    "_id" : ObjectId("5eb033268ffa000bd193c104"),
-    "id": 4,
-    "name" : "面包",
-    "type" : 1,
-    "price" : 450,
-    "eatTime" : 160000,
-    "exp" : 1000,
-    "num" : 0,
-    "unlock" : 0,
-    "unlockPrice": 1000,
-    "img": "food4.png",
-    "__v" : 0
-},{
-    "_id" : ObjectId("5eb033268ffa000bd193c105"),
-    "id": 5,
-    "name" : "葡萄",
-    "type" : 1,
-    "price" : 650,
-    "eatTime" : 170000,
-    "exp" : 1100,
-    "num" : 0,
-    "unlock" : 0,
-    "unlockPrice": 1300,
-    "img": "food5.png",
-    "__v" : 0
-},{
-    "_id" : ObjectId("5eb033268ffa000bd194b106"),
-    "id": 6,
-    "name" : "豆腐",
-    "type" : 1,
-    "price" : 750,
-    "eatTime" : 180000,
-    "exp" : 1200,
-    "num" : 0,
-    "unlock" : 0,
-    "unlockPrice": 1500,
-    "img": "food6.png",
-    "__v" : 0
-},{
-    "_id" : ObjectId("5eb033268ffa000bd194b107"),
-    "id": 7,
-    "name" : "大包菜",
-    "type" : 1,
-    "price" : 750,
-    "eatTime" : 180000,
-    "exp" : 1200,
-    "num" : 0,
-    "unlock" : 0,
-    "unlockPrice": 1500,
-    "img": "food7.png",
     "__v" : 0
 }

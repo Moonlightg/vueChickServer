@@ -5,6 +5,7 @@ const router = express.Router();
 //const login = require("login");
 const userApi = require("../api/user-api");
 const goodsApi = require("../api/goods-api");
+const tasksApi = require("../api/tasks-api");
 
 router.post('/register',userApi.register) //注册
 router.post('/login',userApi.login) //登录
@@ -16,6 +17,7 @@ router.get('/getUserFoods',goodsApi.getUserFoods) //获取用户背包食品列�
 router.post('/unlock',goodsApi.unlock) //解锁商品
 router.post('/closingGood',goodsApi.closingGood) // 购买商品
 router.post('/feeding',goodsApi.feeding) // 投喂食物
+router.post('/postTasks',tasksApi.infoTasks) // 初始化每日任务
 
 
 module.exports = router;
