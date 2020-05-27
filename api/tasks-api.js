@@ -14,14 +14,15 @@ exports.infoTasks = (req, res) => {
         if(err){
             res.send({'status': 1002, 'message': '查询失败', 'data': err});
         }else{
-            console.log('查询成功'+data)
-            if(data.length = 0) {
+            console.log('查询成功'+data);
+            console.log(data);
+            console.log(data.length);
+            if(data.length == 0) {
                 Task.find({},(err,tasks) => {
                     if(err){
                         console.log(err);
                     }else{
                         console.log('查询tasks成功'+tasks)
-
                         const usertask = new userTask({
                             openId: req.body.userId,
                             time: newDate,
@@ -33,14 +34,14 @@ exports.infoTasks = (req, res) => {
                             } else {
                                 console.log("初始化每日任务成功");
                                 console.log(docs);
-                                res.send({ "code": 0, 'message': '初始化任务成功', docs });
+                                res.send({ "code": 0, 'message': '初始化任务成功', "data":docs });
                             }
                         });
                     }
                 });
             } else {
-                console.log(data);
-                res.send({ "code": 0, 'message': '获取任务成功', data });
+                const newdata = data[0];
+                res.send({ "code": 0, 'message': '获取任务成功', "data":newdata });
             }
         }
     });

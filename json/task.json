@@ -2,12 +2,20 @@
     "_id" : ObjectId("5eb033268ffa000bd193c101"),
     "taskId" : "task1",
     "taskTitle" : "每天登录",
-    "state" : false, // false 未完成, true 已完成
+    "state" : 1,    // 0 未完成, 1 已完成, 2 已️领取奖励
+    "currCount": 0,     // 当前已完成数量 - 进度
+    "needCount": 1,     // 满足条件的数量
+    "rewardMoney": 100,      // 奖励金币
+    "rewardGem": 0,          // 奖励宝石
     "__v" : 0
 },{
     "_id" : ObjectId("5eb033268ffa000bd193c102"),
     "taskId" : "task2",
     "taskTitle" : "投喂3次小鸡",
-    "state" : false, // false 未完成, true 已完成
+    "state" : 0, 
+    "currCount": 0,     
+    "needCount": 3,
+    "rewardMoney": 500,     
+    "rewardGem": 50,         
     "__v" : 0
 }

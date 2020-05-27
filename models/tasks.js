@@ -3,7 +3,11 @@ var mongoose = require('mongoose')
 var taskSchema = new mongoose.Schema({
 	taskId: String,             // 任务id
 	taskTitle: String,          // 任务描述
-  	state: Boolean,			    // 任务完成状态
+  	state: Number,			    // 任务完成状态,0,1,2 未完成,已完成,已领取
+  	currCount: Number,     		// 当前已完成数量 - 进度
+    needCount: Number,			// 满足条件的数量
+    rewardMoney: Number,   		// 奖励金币  
+    rewardGem: Number			// 奖励宝石  
 })
 
 // users 为指定的collections集合
