@@ -25,6 +25,7 @@ exports.register = (req, res) => {
                     register_date: moment().format('YYYY-MM-DD HH:mm:ss'),
                     update_date: moment().format('YYYY-MM-DD HH:mm:ss'),
                     money: 1000,
+                    gem: 100,
                     level: 1,
                     eat: false,
                     eatEndTime: 0

@@ -50,72 +50,63 @@ exports.infoTasks = (req, res) => {
 
 // 领取任务奖励
 exports.postReceiveTask = (req, res) => {
-    console.log("领取任务奖励");
-    console.log(req.body);
-    const taskDocs = {};
+    const ndate = {};
     const taskId = req.body.taskId;
     const newDate = moment().format('YYYY-MM-DD');
-    console.log("taskId------");
-    console.log(taskId);
     const conditions = {
         openId: req.body.userId,
-        time: newDate,
-        "tasks.tasksId":taskId
+        time: newDate
     };
 
-    const update = {$set:{"tasks.$.state":2}};
-    const options = {new: true};
-
-    // myCollection.findOneAndUpdate({"_id": docId, "steps.name": "foo"},
-    // {$set: {"steps.$.state": "P"}})
-    userTask.findOneAndUpdate(conditions, update, options, (err, doc) => {
+    userTask.findOne(conditions, function (err, comment) {
         if (err) {
-            res.send({'code': 0, 'msg': '任务领取失败', 'data': err});
+            res.send(err);
         } else {
-            // taskDocs.task = doc;
-            // const update2 = {$inc:{"money.$":}}
-            console.log("-------");
-            console.log(doc);
-            res.send({ 'code': 1, 'msg': '任务领取成功', 'data':doc });
+            //遍历comment.tasks，根据taskId找到想要修改的tasks
+            for(var i = 0; i < comment.tasks.length; i++){
+                //如果找到了
+                if(comment.tasks[i].taskId == taskId){
+                    //将state修改为2,任务状态为已领取
+                    comment.tasks[i].state = 2;
+                    //混合类型因为没有特定约束，
+                    //因此可以任意修改，一旦修改了原型，
+                    //则必须调用markModified()
+                    //传入state，表示该属性类型发生变化
+                    comment.markModified('state');
+                    //更新任务数据
+                    const upTasks = new userTask(
+                        comment
+                    );
+
+                    // 奖励的金币
+                    let rewardMoney = comment.tasks[i].rewardMoney;
+                    // 奖励的宝石
+                    let rewardGem = comment.tasks[i].rewardGem;
+
+                    upTasks.save(function(err, docs){
+                        if (err) {
+                            res.send(err);
+                        } else {
+                            ndate.data = docs;
+                            User.findByIdAndUpdate(req.body.userId,{
+                                $inc:{
+                                    "money":rewardMoney,
+                                    "gem":rewardGem
+                                }
+                            },{
+                                new: true
+                            }, (err, data) => {
+                                if(err) {
+                                    console.log(err)
+                                } else {
+                                    ndate.user = data;
+                                    res.json({'code': 0, 'msg': '修改成功！', 'data':ndate});
+                                }
+                            });
+                        }
+                    });
+                }
+            }
         }
     })
-
-
-
-
-  //   const addCount = req.body.addCount;
-  
-  //   const conditions = {
-  //       openId: req.query.userId,
-  //       time: newDate,
-  //       tasks.taskId: taskType
-  //   };
-  //   const update = {$inc:{"tasks.$.currCount":addCount}};
-  //   const update2 = {$set:{"tasks.$.state":1}};
-  //   const options = {new: true};
-
-  // userTask.findOneAndUpdate(conditions, update, options, (err, doc) => {
-  //   if (err) {
-  //     res.send({'code': 0, 'msg': '更新任务失败', 'data': err});
-  //   } else {
-  //     doc.tasks.forEach((item) => {
-  //       if(item.taskId == taskType) {
-  //         if( item.currCount >= item.needCount ) {
-  //           userTask.findOneAndUpdate(conditions, update2, options, (err, data) => {
-  //             console.log("改变完成状态后返回的数据");
-  //             console.log(data);
-  //             if (err) {
-  //               res.send({'code': 0, 'msg': '更新任务失败', 'data': err});
-  //             } else {
-  //               res.send({ 'code': 1, 'msg': '更新任务成功', 'data':data });
-  //             }
-  //           });
-  //         }
-  //         console.log("更新任务次数后返回");
-  //         console.log(doc);
-  //         res.send({ 'code': 1, 'msg': '更新任务成功', 'data':doc });
-  //       }
-  //     })
-  //   }
-  // });
 }
