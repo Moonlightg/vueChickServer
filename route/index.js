@@ -19,6 +19,7 @@ router.post('/closingGood',goodsApi.closingGood) // 购买商品
 router.post('/feeding',goodsApi.feeding) // 投喂食物
 router.post('/postTasks',tasksApi.infoTasks) // 初始化每日任务
 router.post('/postReceiveTask',tasksApi.postReceiveTask) // 领取任务奖励
+router.post('/addTaskCount',tasksApi.addTaskCount) // 增加任务进度次数
 
 
 module.exports = router;

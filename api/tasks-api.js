@@ -110,3 +110,15 @@ exports.postReceiveTask = (req, res) => {
         }
     })
 }
+
+// 增加任务进度次数
+exports.addTaskCount = (req, res) => {
+    console.log("显示任务需要更新的信息-----");
+    console.log(req.body);
+    const taskId = req.body.taskId;
+    const newDate = moment().format('YYYY-MM-DD');
+    const conditions = {
+        openId: req.body.userId,
+        time: newDate
+    };
+}
