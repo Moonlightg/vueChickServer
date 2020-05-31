@@ -115,10 +115,45 @@ exports.postReceiveTask = (req, res) => {
 exports.addTaskCount = (req, res) => {
     console.log("显示任务需要更新的信息-----");
     console.log(req.body);
-    const taskId = req.body.taskId;
+    const ndate = {}; // 新增一个对象保存新数据
+    const taskType = req.body.type; // 任务类型
+    const count = parseInt(req.body.count);   // 任务增加进度次数
     const newDate = moment().format('YYYY-MM-DD');
     const conditions = {
         openId: req.body.userId,
         time: newDate
     };
+    userTask.findOne(conditions, function (err, comment) {
+        if (err) {
+            res.send(err);
+        } else {
+            console.log("找到当天任务");
+            console.log(comment);
+            //遍历comment.tasks，根据taskId找到想要修改的tasks
+            for(var i = 0; i < comment.tasks.length; i++){
+                //查找任务类型相等的任务
+                if(comment.tasks[i].taskType == taskType){
+                    comment.tasks[i].currCount += count;
+                    console.log("增加后的次数");
+                    console.log(comment.tasks[i].currCount);
+                    if (comment.tasks[i].currCount >= comment.tasks[i].needCount) {
+                        comment.tasks[i].state = 1;
+                    }
+                    //更新任务数据
+                    const upTasks = new userTask(
+                        comment
+                    );
+                    upTasks.save(function(err, docs){
+                        if (err) {
+                            res.send(err);
+                        } else {
+                            ndate.data = docs;
+                            res.json({'code': 0, 'msg': '任务进度更新成功！', 'data':ndate});
+                        }
+                    });
+                }
+            }
+
+        }
+    });
 }
