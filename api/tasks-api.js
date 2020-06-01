@@ -134,26 +134,24 @@ exports.addTaskCount = (req, res) => {
                 //查找任务类型相等的任务
                 if(comment.tasks[i].taskType == taskType){
                     comment.tasks[i].currCount += count;
-                    console.log("增加后的次数");
-                    console.log(comment.tasks[i].currCount);
-                    if (comment.tasks[i].currCount >= comment.tasks[i].needCount) {
+                    if (comment.tasks[i].currCount >= comment.tasks[i].needCount && comment.tasks[i].state == 0) {
+                        comment.tasks[i].currCount = comment.tasks[i].needCount;
                         comment.tasks[i].state = 1;
                     }
-                    //更新任务数据
-                    const upTasks = new userTask(
-                        comment
-                    );
-                    upTasks.save(function(err, docs){
-                        if (err) {
-                            res.send(err);
-                        } else {
-                            ndate.data = docs;
-                            res.json({'code': 0, 'msg': '任务进度更新成功！', 'data':ndate});
-                        }
-                    });
                 }
             }
-
+            //更新任务数据
+            const upTasks = new userTask(
+                comment
+            );
+            upTasks.save(function(err, docs){
+                if (err) {
+                    res.send(err);
+                } else {
+                    ndate.data = docs;
+                    res.json({'code': 0, 'msg': '任务进度更新成功！', 'data':ndate});
+                }
+            });
         }
     });
 }
