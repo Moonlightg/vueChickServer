@@ -6,6 +6,7 @@ const router = express.Router();
 const userApi = require("../api/user-api");
 const goodsApi = require("../api/goods-api");
 const tasksApi = require("../api/tasks-api");
+const logApi = require("../api/log-api");
 
 router.post('/register',userApi.register) //注册
 router.post('/login',userApi.login) //登录
@@ -22,6 +23,7 @@ router.post('/postReceiveTask',tasksApi.postReceiveTask) // 领取任务奖励
 router.post('/addTaskCount',tasksApi.addTaskCount) // 增加任务进度次数
 router.post('/postEgg',goodsApi.postEgg) // 收获鸡蛋(物品)
 router.post('/postEggNum',userApi.postEggNum) // 收获鸡蛋(总产量),更新小鸡信息
+router.post('/addLog',logApi.addLog) // 添加动态日志
 
 
 module.exports = router;

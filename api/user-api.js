@@ -3,6 +3,7 @@
 const moment = require('moment')
 const User = require('../models/user')
 const Chick = require('../models/chick')
+const Log = require('../models/log')
 const jwt = require('jsonwebtoken')
 // 密钥
 const SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
@@ -10,20 +11,21 @@ const SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
 
 // 注册
 exports.register = (req, res) => {
+    const newDate = moment().format('YYYY-MM-DD HH:mm:ss');
      User.find({username: req.body.username},(err,data) => {
         if(err){
-            res.send({'status': 1002, 'message': '查询失败', 'data': err});
+            res.send({'status': 1002, 'msg': '查询失败', 'data': err});
         }else{
             console.log('查询成功'+data)
             //data为返回的数据库中的有相同username的集合
             if(data.length > 0) {
-                res.send({'status': 1001, 'message': '该用户名已经注册！'});
+                res.send({'status': 1001, 'msg': '该用户名已经注册！'});
             } else {
                 const user = new User({
                     username: req.body.username,
                     pass: req.body.pass,
-                    register_date: moment().format('YYYY-MM-DD HH:mm:ss'),
-                    update_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+                    register_date: newDate,
+                    update_date: newDate,
                     money: 1000,
                     gem: 100,
                     level: 1,
@@ -59,7 +61,21 @@ exports.register = (req, res) => {
                                 console.log(chick);
                             }
                         });
-                        res.send({ "code": 0, 'message': '注册成功', 'data': docs });
+                        const log = new Log({
+                            openId: docs._id,
+                            logList: [{
+                                log_title: '注册账号',      // 日志描述
+                                log_date: newDate         // 日志时间
+                            }]
+                        });
+                        log.save((err, log) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(log);
+                            }
+                        });
+                        res.send({ "code": 0, 'msg': '注册成功', 'data': docs });
                     }
                 });
             }
