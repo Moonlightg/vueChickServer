@@ -20,6 +20,8 @@ router.post('/feeding',goodsApi.feeding) // 投喂食物
 router.post('/postTasks',tasksApi.infoTasks) // 初始化每日任务
 router.post('/postReceiveTask',tasksApi.postReceiveTask) // 领取任务奖励
 router.post('/addTaskCount',tasksApi.addTaskCount) // 增加任务进度次数
+router.post('/postEgg',goodsApi.postEgg) // 收获鸡蛋(物品)
+router.post('/postEggNum',userApi.postEggNum) // 收获鸡蛋(总产量),更新小鸡信息
 
 
 module.exports = router;

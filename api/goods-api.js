@@ -134,3 +134,51 @@ exports.feeding = (req, res) => {
 
 }
 
+// 收获鸡蛋
+exports.postEgg = (req, res) => {
+    console.log("req.body");
+    console.log(req.body);
+    const conditions = {
+        openId: req.body.userId,
+        name: req.body.name
+    };
+    userGood.findOne(conditions,(err,data) => {
+        if (err) {
+            res.json({'code': 0, 'msg': '查询失败', 'data': err});
+        } else {
+            console.log('查询背包食物成功'+data);
+            if(data == null) {
+                const userEgg = new userGood({
+                    openId: req.body.userId,
+                    name: req.body.name,
+                    type: parseInt(req.body.type),
+                    price: parseInt(req.body.price),
+                    num: parseInt(req.body.num),
+                    img: req.body.img,
+                    eatTime : 0,
+                    exp : 0,
+                    unlock : 0,
+                    unlockPrice : 0,
+                });
+                userEgg.save((err, docs) => {
+                    if (err) {
+                        res.json({ 'code': 1, 'msg': '收获鸡蛋失败', 'data': err });
+                    } else {
+                        console.log("收获鸡蛋成功");
+                        console.log(docs);
+                        res.json({ "code": 0, 'message': '收获鸡蛋成功', "data":docs });
+                    }
+                });
+            } else {
+                userGood.findOneAndUpdate(conditions,{$inc:{"num": req.body.num}}, {new:true}, (err,docs) => {
+                    if (err) {
+                        res.json({'code': 1, 'msg': '收获鸡蛋失败', 'data': err});
+                    } else {
+                        res.json({ 'code': 0, 'message': '收获鸡蛋成功', 'data': docs });
+                    }
+                });
+            }
+        }
+    })
+}
+

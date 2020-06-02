@@ -57,7 +57,6 @@ exports.register = (req, res) => {
                             } else {
                                 console.log("创建小鸡成功");
                                 console.log(chick);
-                                //res.send({ "code": 0, 'message': '创建小鸡成功', 'data': docs });
                             }
                         });
                         res.send({ "code": 0, 'message': '注册成功', 'data': docs });
@@ -84,10 +83,10 @@ exports.login = (req, res) => {
         new: true
     }, (err, data) => {
         if (err) {
-            return res.send({'status': 1002, 'message': '查询失败', 'data': err});
+            return res.send({'status': 1002, 'msg': '查询失败', 'data': err});
         } else {
             if(data === null) {
-                res.send({'status': 422, 'message': '用户名或密码错误!'});
+                res.send({'status': 422, 'msg': '用户名或密码错误!'});
             } else {
                 // 生成token
                 const token = jwt.sign({
@@ -97,11 +96,10 @@ exports.login = (req, res) => {
                 // 查询小鸡信息
                 Chick.find({openId: String(user._id)},(err,docs) => {
                     if (err) {
-                        res.send({'code': 0, 'msg': '查询失败', 'data': err});
+                        res.send({'code': 1, 'msg': '查询失败', 'data': err});
                     } else {
-                        console.log('查询小鸡成功'+docs)
                         chick = docs[0];
-                        res.send({ 'code': 0, 'message': '登录成功', user, chick, token});
+                        res.send({ 'code': 0, 'msg': '登录成功', user, chick, token});
                     }
                 })
             }
@@ -117,22 +115,17 @@ exports.login = (req, res) => {
 
 // 获取小鸡状态
 exports.getChick = (req, res) => {
-    console.log("req.query");
-    console.log(req.query);
     Chick.find({openId: req.query.userId},(err,data) => {
         if (err) {
             res.send({'code': 0, 'msg': '查询失败', 'data': err});
         } else {
-            console.log('查询小鸡成功'+data)
-            res.send({'code': 1, 'message': '查找小鸡成功', 'data': data });
+            res.send({'code': 1, 'msg': '查找小鸡成功', 'data': data });
         }
     })
 }
 
 // 更新小鸡状态
 exports.postChick = (req, res) => {
-    console.log("测试小鸡状态:");
-    console.log(req.body);
     const {
         openId,             
         exp,                
@@ -170,7 +163,28 @@ exports.postChick = (req, res) => {
             res.send({'code': 0, 'msg': '更新小鸡失败', 'data': err});
         } else {
             console.log('查询小鸡成功'+data)
-            res.send({'code': 1, 'message': '更新小鸡成功', 'data': data });
+            res.send({'code': 1, 'msg': '更新小鸡成功', 'data': data });
         }
     })
+}
+
+// 更新小鸡总产量,重置可获取鸡蛋量为0
+exports.postEggNum = (req, res) => {
+    const conditions = {
+        openId: req.body.userId
+    };
+    const update = {
+        $inc:{"eggTotal": req.body.num},
+        $set:{"eggNum": 0}
+    };
+    const options = {
+        new:true
+    };
+    Chick.findOneAndUpdate(conditions, update, options, (err,docs) => {
+        if (err) {
+            res.json({'code': 1, 'msg': '更新小鸡总产量失败', 'data': err});
+        } else {
+            res.json({ 'code': 0, 'msg': '更新小鸡总产量成功', 'data': docs });
+        }
+    });
 }
