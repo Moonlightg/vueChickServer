@@ -24,6 +24,7 @@ router.post('/addTaskCount',tasksApi.addTaskCount) // 增加任务进度次数
 router.post('/postEgg',goodsApi.postEgg) // 收获鸡蛋(物品)
 router.post('/postEggNum',userApi.postEggNum) // 收获鸡蛋(总产量),更新小鸡信息
 router.post('/addLog',logApi.addLog) // 添加动态日志
+router.get('/getLog',logApi.getLog) // 获取动态日志
 
 
 module.exports = router;

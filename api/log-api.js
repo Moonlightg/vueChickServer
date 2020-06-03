@@ -28,3 +28,17 @@ exports.addLog = (req, res) => {
         }
     });
 }
+
+// 获取动态日志
+exports.getLog = (req, res) => {
+    const conditions = {
+        openId: req.query.userId
+    };
+    Log.findOne(conditions,(err,data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({ "code": 0, 'msg': '查询动态成功', "data":data });
+        }
+    });
+}
