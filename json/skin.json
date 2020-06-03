@@ -1,0 +1,72 @@
+{
+    "_id" : ObjectId("5eb033268ffa000bd192a101"),
+    "skinId" : 1,
+    "skinType" : "default",
+    "skinName" : "默认套装",
+    "skinState" : 1,
+    "price": 0,
+    "start_date" : "",
+    "end_date" : "",
+    "days" : 0,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("5eb033268ffa000bd192a102"),
+    "skinId" : 1,
+    "skinType" : "forg",
+    "skinName" : "青蛙套装",
+    "skinState" : 0,
+    "price": 100,
+    "start_date" : "",
+    "end_date" : "",
+    "days" : 0,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("5eb033268ffa000bd192a103"),
+    "skinId" : 2,
+    "skinType" : "default",
+    "skinName" : "默认帽子",
+    "skinState" : 1,
+    "price": 0,
+    "start_date" : "",
+    "end_date" : "",
+    "days" : 0,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("5eb033268ffa000bd192a104"),
+    "skinId" : 2,
+    "skinType" : "forg",
+    "skinName" : "青蛙帽子",
+    "skinState" : 0,
+    "price": 50,
+    "start_date" : "",
+    "end_date" : "",
+    "days" : 0,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("5eb033268ffa000bd192a105"),
+    "skinId" : 3,
+    "skinType" : "default",
+    "skinName" : "默认上衣",
+    "skinState" : 1,
+    "price": 0,
+    "start_date" : "",
+    "end_date" : "",
+    "days" : 0,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("5eb033268ffa000bd192a106"),
+    "skinId" : 3,
+    "skinType" : "forg",
+    "skinName" : "青蛙上衣",
+    "skinState" : 0,
+    "price": 50,
+    "start_date" : "",
+    "end_date" : "",
+    "days" : 0,
+    "__v" : 0
+}
