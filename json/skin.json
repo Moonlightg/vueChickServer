@@ -8,6 +8,7 @@
     "start_date" : "",
     "end_date" : "",
     "days" : 0,
+    "img" : "skin-default.jpg",
     "__v" : 0
 },
 {
@@ -20,6 +21,7 @@
     "start_date" : "",
     "end_date" : "",
     "days" : 0,
+    "img" : "skin-suit-1.jpg",
     "__v" : 0
 },
 {
@@ -32,6 +34,7 @@
     "start_date" : "",
     "end_date" : "",
     "days" : 0,
+    "img" : "skin-default.jpg",
     "__v" : 0
 },
 {
@@ -44,6 +47,7 @@
     "start_date" : "",
     "end_date" : "",
     "days" : 0,
+    "img" : "skin-hat-1.jpg",
     "__v" : 0
 },
 {
@@ -56,6 +60,7 @@
     "start_date" : "",
     "end_date" : "",
     "days" : 0,
+    "img" : "skin-default.jpg",
     "__v" : 0
 },
 {
@@ -68,5 +73,6 @@
     "start_date" : "",
     "end_date" : "",
     "days" : 0,
+    "img" : "skin-clothe-1.jpg",
     "__v" : 0
 }

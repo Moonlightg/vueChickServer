@@ -9,8 +9,8 @@ var skinSchema = new mongoose.Schema({
 	start_date: String,   // 激活时间
 	end_date: String,     // 到期时间
 	days: Number,         // 有效期(天)
+	img: String           // 皮肤图片
 
 })
 
-// users 为指定的collections集合
 module.exports = mongoose.model('Skin', skinSchema, 'skins')

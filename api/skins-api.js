@@ -40,11 +40,25 @@ exports.infoUserSkins = (req, res) => {
             console.log(data);
             data.forEach(item => {
                 if( item.skinId == 1 ) {
-                    skinList[0].list.push(item);
+                    if (item.skinType == 'default') {
+                        skinList[0].list.unshift(item);
+                    } else {
+                        skinList[0].list.push(item);
+                    }
+                    
                 } else if (item.skinId == 2 ) {
-                    skinList[1].list.push(item);
+                    if (item.skinType == 'default') {
+                        skinList[1].list.unshift(item);
+                    } else {
+                        skinList[1].list.push(item);
+                    }
                 } else {
-                    skinList[2].list.push(item);
+                    if (item.skinType == 'default') {
+                        skinList[2].list.unshift(item);
+                    } else {
+                        skinList[2].list.push(item);
+                    }
+                    
                 }
             });
 
