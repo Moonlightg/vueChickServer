@@ -78,3 +78,31 @@ exports.infoUserSkins = (req, res) => {
         }
     })
 }
+
+// 购买皮肤
+exports.postBdySkin = (req, res) => {
+    console.log(req.body);
+    var date1 = new Date();
+    var date2 = new Date(date1);
+    date2.setDate(date1.getDate() + parseInt(req.body.days));
+    console.log("date2");
+    console.log(date2);
+    let start_date = moment().format('YYYY-MM-DD HH:mm:ss');    // 皮肤生效开始时间
+    let end_date = moment(date2).format('YYYY-MM-DD HH:mm:ss'); // 皮肤到期时间
+    console.log(start_date);
+    console.log(end_date);
+    const conditions = {
+        openId: req.body.userId
+    };
+    Userskin.findOne(conditions,(err,data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("查询到的用户小鸡皮肤数据");
+            console.log(data);
+            
+            // 循环更新数据
+            res.json({ "code": 0, 'message': '购买皮肤成功', "data":data });
+        }
+    })
+}
