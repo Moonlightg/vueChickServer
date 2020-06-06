@@ -82,9 +82,11 @@ exports.infoUserSkins = (req, res) => {
 // 购买皮肤
 exports.postBdySkin = (req, res) => {
     console.log(req.body);
-    var date1 = new Date();
-    var date2 = new Date(date1);
-    date2.setDate(date1.getDate() + parseInt(req.body.days));
+    let skinName = req.body.skinName;
+    let days = parseInt(req.body.days);
+    let date1 = new Date();
+    let date2 = new Date(date1);
+    date2.setDate(date1.getDate() + days);
     console.log("date2");
     console.log(date2);
     let start_date = moment().format('YYYY-MM-DD HH:mm:ss');    // 皮肤生效开始时间
@@ -100,9 +102,30 @@ exports.postBdySkin = (req, res) => {
         } else {
             console.log("查询到的用户小鸡皮肤数据");
             console.log(data);
-            
+
             // 循环更新数据
-            res.json({ "code": 0, 'message': '购买皮肤成功', "data":data });
+            data.skinList.forEach(item => {
+              item.list.forEach(docs => {
+                if(docs.skinName === skinName) {
+                    docs.skinState = 1;
+                    docs.days = days;
+                    docs.start_date = start_date;
+                    docs.end_date = end_date;
+                }
+              })
+            })
+             //更新任务数据
+            const upSkin = new Userskin(
+                data
+            );
+            upSkin.save(function(err, newskin){
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.json({ "code": 0, 'message': '购买皮肤成功', "data":newskin });
+                }
+            });
+            
         }
     })
 }
