@@ -1,5 +1,6 @@
 const moment = require('moment')
 const Skin = require('../models/skin')
+const User = require('../models/user')
 const Userskin = require('../models/userskin')
 
 // 查询小鸡皮肤数据
@@ -82,8 +83,9 @@ exports.infoUserSkins = (req, res) => {
 // 购买皮肤
 exports.postBdySkin = (req, res) => {
     console.log(req.body);
-    let skinName = req.body.skinName;
+    let skinType = req.body.skinType;
     let days = parseInt(req.body.days);
+    let gem  = parseInt(req.body.price);
     let date1 = new Date();
     let date2 = new Date(date1);
     date2.setDate(date1.getDate() + days);
@@ -106,7 +108,7 @@ exports.postBdySkin = (req, res) => {
             // 循环更新数据
             data.skinList.forEach(item => {
               item.list.forEach(docs => {
-                if(docs.skinName === skinName) {
+                if(docs.skinType == skinType) {
                     docs.skinState = 1;
                     docs.days = days;
                     docs.start_date = start_date;
@@ -114,7 +116,7 @@ exports.postBdySkin = (req, res) => {
                 }
               })
             })
-             //更新任务数据
+             // 更新皮肤数据
             const upSkin = new Userskin(
                 data
             );
@@ -122,10 +124,20 @@ exports.postBdySkin = (req, res) => {
                 if (err) {
                     res.send(err);
                 } else {
+                    // 更新用户资产(皮肤扣除宝石)
+                    User.findByIdAndUpdate(req.body.userId,{
+                        $inc:{
+                            gem: -gem
+                        }}, (err, docs) => {
+                        if(err) {
+                            console.log(err)
+                        } else {
+                            console.log("资产更新成功")
+                        }
+                    })
                     res.json({ "code": 0, 'message': '购买皮肤成功', "data":newskin });
                 }
             });
-            
         }
     })
 }
