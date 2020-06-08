@@ -8,7 +8,8 @@ var skinSchema = new mongoose.Schema({
 	price: Number,        // 价格(宝石)
 	start_date: String,   // 激活时间
 	end_date: String,     // 到期时间
-	days: Number,         // 有效期(天)
+	diff: String,         // 到期时间差(天,小时)
+	days: Number,         // 购买天数(天)
 	img: String           // 皮肤图片
 
 })
