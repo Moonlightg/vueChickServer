@@ -51,7 +51,9 @@ exports.register = (req, res) => {
                             eggNum: 0,
                             eggProgress: 0,
                             eggBase: 50,
-                            eggAddExps: 0
+                            eggAddExps: 0,
+                            skinHat: 'Hatdefault',
+                            skinClothes: 'Clothesdefault'       
                         });
                         chick.save((err, chick) => {
                             if (err) {
@@ -155,7 +157,9 @@ exports.postChick = (req, res) => {
         eggNum,             
         eggProgress,        
         eggBase,            
-        eggAddExps         
+        eggAddExps,
+        skinHat,
+        skinClothes           
         } = req.body
     Chick.findOneAndUpdate({openId},{
         $set:{
@@ -171,7 +175,9 @@ exports.postChick = (req, res) => {
             eggNum,             
             eggProgress,        
             eggBase,            
-            eggAddExps 
+            eggAddExps,
+            skinHat,
+            skinClothes 
         }},{
             new: true
         }, (err,data) => {

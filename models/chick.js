@@ -13,7 +13,9 @@ var chickSchema = new mongoose.Schema({
     eggNum: Number,             // 鸡蛋待拾取数量
     eggProgress: Number,        // 鸡蛋进度条
     eggBase: Number,            // 鸡蛋生成基数值: 鸡蛋个数*基数 = 生成鸡蛋增加的数值
-    eggAddExps: Number          // 每次增加的鸡蛋经验
+    eggAddExps: Number,         // 每次增加的鸡蛋经验
+    skinHat: String,            // 帽子皮肤
+    skinClothes: String         // 衣服皮肤
 })
 
 // users 为指定的collections集合
