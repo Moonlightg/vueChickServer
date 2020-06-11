@@ -17,35 +17,13 @@ exports.getUserSkins = (req, res) => {
             if (data == null) {
                 res.json({ "code": 0, 'msg': '查询皮肤成功', "data":data });
             } else {
-                // 循环判断皮肤时间是否到期,返回新数据
-                let new_date =  moment().format('YYYY-MM-DD HH:mm:ss'); // 当前时间
                 // 循环更新数据
                 data.skinList.forEach(item => {
                   item.list.forEach(docs => {
-                    if (docs.skinType != 'default' && docs.skinState == 1) {
-                        // 皮肤到期时间先与当前时间做比较,如果过期了返回true, 没过期返回false,没过期然后计算时间差
-                        let isOverdue = moment(new_date).isAfter(docs.end_date);
-                        console.log("测试下--"+docs.skinName+"--是否到期--"+ isOverdue);
-                        if (!isOverdue) {
-                            // 没有过期就比较时间差
-                            let date1=moment(new_date);
-                            let date2=moment(docs.end_date);
-                            let date3=date2.diff(date1,'minute');//计算相差的分钟数
-                            let y=Math.floor(date3/60/24);//相差的天数
-                            let h=Math.floor(date3%(60*24)/60);//计算相差小时后余下的小时数
-                            let html;
-                            if (y < 1) {
-                                html = h+"小时";
-                            } else {
-                                html = y+"天"+h+"小时";
-                            }
-                            console.log(docs.skinName+"还剩下"+y+"天"+h+"小时");
-                            docs.diff = html;
-                        } else {
-                            // 过期了重置状态"未拥有"
-                            docs.skinState = 0;
-                            docs.diff = "";
-                        }
+                    if (docs.skinType != 'default' && docs.skinState == 1 ) {
+                        updateSkinTime(docs);
+                    } else if (docs.skinType != 'default' && docs.skinState == 2) {
+                        updateSkinTime(docs);
                     }
                   })
                 })
@@ -299,4 +277,36 @@ exports.postUseSkin = (req, res) => {
             })
         }
     });
+}
+
+
+// 更新皮肤时间方法
+function updateSkinTime(docs) {
+    // 判断皮肤时间是否到期,返回新数据
+    let new_date =  moment().format('YYYY-MM-DD HH:mm:ss'); // 当前时间
+    // 皮肤到期时间先与当前时间做比较,如果过期了返回true, 没过期返回false,没过期然后计算时间差
+    let isOverdue = moment(new_date).isAfter(docs.end_date);
+    console.log("测试下--"+docs.skinName+"--是否到期--"+ isOverdue);
+    if (!isOverdue) {
+        // 没有过期就比较时间差
+        let date1=moment(new_date);
+        let date2=moment(docs.end_date);
+        let date3=date2.diff(date1,'minute');//计算相差的分钟数
+        let y=Math.floor(date3/60/24);//相差的天数
+        let h=Math.floor(date3%(60*24)/60);//计算相差小时后余下的小时数
+        let html;
+        if (y < 1) {
+            html = h+"小时";
+        } else {
+            html = y+"天"+h+"小时";
+        }
+        console.log(docs.skinName+"还剩下"+y+"天"+h+"小时");
+        docs.diff = html;
+        return docs;
+    } else {
+        // 过期了重置状态"未拥有"
+        docs.skinState = 0;
+        docs.diff = "";
+        return docs;
+    }
 }
