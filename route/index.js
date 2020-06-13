@@ -22,6 +22,7 @@ router.post('/postBdySkin',skinsApi.postBdySkin) // 购买皮肤
 router.post('/postUseSkin',skinsApi.postUseSkin) // 使用皮肤
 router.post('/unlock',goodsApi.unlock) //解锁商品
 router.post('/closingGood',goodsApi.closingGood) // 购买商品
+router.post('/sellFood',goodsApi.sellFood) // 出售物品
 router.post('/feeding',goodsApi.feeding) // 投喂食物
 router.post('/postTasks',tasksApi.infoTasks) // 初始化每日任务
 router.post('/postReceiveTask',tasksApi.postReceiveTask) // 领取任务奖励

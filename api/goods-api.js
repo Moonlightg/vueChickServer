@@ -94,6 +94,44 @@ exports.closingGood = (req, res) => {
     });
 }
 
+// 出售物品
+exports.sellFood = (req, res) => {
+    console.log("出售物品的数据");
+    console.log(req.body);
+    let newData = {};
+    let sellNum = parseInt(req.body.num);
+    let addMoney = parseInt(req.body.money);
+    const conditions = {
+        openId: req.body.userId,
+        name: req.body.name
+    };
+    userGood.findOneAndUpdate(conditions,{
+        $inc:{
+            num: -sellNum
+        }},{
+            new: true
+        },(err,data) => {
+        if (err) {
+            res.json({'code': 1, 'msg': '查询失败', 'data': err});
+        } else {
+            newData = data;
+            User.findByIdAndUpdate(req.body.userId,{
+                $inc:{
+                    money: addMoney
+                }
+            }, function (err,docs) {
+                if(err) {
+                    console.log('更新失败')
+                } else {
+                    console.log('金币更新成功')
+                    res.json({'code': 0, 'msg': '出售成功', 'data': newData});
+                }
+            });
+            
+        }
+    });
+}
+
 // 投喂食物
 exports.feeding = (req, res) => {
     let chick = {};
