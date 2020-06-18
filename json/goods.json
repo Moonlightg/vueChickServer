@@ -88,4 +88,17 @@
     "unlockPrice": 1500,
     "img": "food7.png",
     "__v" : 0
+},{
+    "_id" : ObjectId("5db033268ffa000bd194b101"),
+    "id": 8,
+    "name" : "抽奖券",
+    "type" : 2,
+    "price" : 50,
+    "eatTime" : 0,
+    "exp" : 0,
+    "num" : 0,
+    "unlock" : 0,
+    "unlockPrice": 0,
+    "img": "dj01.png",
+    "__v" : 0
 }
