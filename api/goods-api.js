@@ -75,21 +75,47 @@ exports.unlock = (req, res) => {
 exports.closingGood = (req, res) => {
     console.log("req.body");
     console.log(req.body);
+    let openId = req.body.userId;
+    let type = parseInt(req.body.type);
+    let price = parseInt(req.body.price) * parseInt(req.body.num);
+    const conditions = {
+        openId: openId,
+        name: req.body.name
+    };
     // 查询商品并更新数据
-    userGood.findOneAndUpdate({openId: req.body.userId, name: req.body.goodName},{$set:{num: req.body.goodNum}}, {new:true}, (err,data) => {
+    userGood.findOneAndUpdate(conditions,{
+        $inc:{
+            num: req.body.num
+        }}, {new:true}, (err,data) => {
         if (err) {
-            res.send({'code': 0, 'msg': '查询失败', 'data': err});
+            res.send({'code': 1, 'msg': '查询失败', 'data': err});
         } else {
-            res.send({ 'code': 1, 'message': '购买成功', 'data': data });
-        }
-    });
-    User.findByIdAndUpdate(req.body.userId,{
-        money: req.body.money
-    }, function (err,ret) {
-        if(err) {
-            console.log('更新失败')
-        } else {
-            console.log('更新成功')
+            if (type == 1) {
+                User.findByIdAndUpdate(openId,{
+                    $inc:{
+                        money: -price
+                    }}, (err,docs) => {
+                        if(err) {
+                            console.log('更新失败');
+                            return;
+                        } else {
+                            console.log('更新成功');
+                        }
+                });
+            } else {
+                User.findByIdAndUpdate(openId,{
+                    $inc:{
+                        gem: -price
+                    }}, (err,docs) => {
+                        if(err) {
+                            console.log('更新失败');
+                            return;
+                        } else {
+                            console.log('更新成功');
+                        }
+                });
+            }
+            res.json({ 'code': 0, 'msg': '购买成功', 'data': data });
         }
     });
 }
@@ -100,7 +126,9 @@ exports.sellFood = (req, res) => {
     console.log(req.body);
     let newData = {};
     let sellNum = parseInt(req.body.num);
-    let addMoney = parseInt(req.body.money);
+    let openId = req.body.userId;
+    let type = parseInt(req.body.type);
+    let price = parseInt(req.body.price) * parseInt(req.body.num);
     const conditions = {
         openId: req.body.userId,
         name: req.body.name
@@ -115,19 +143,32 @@ exports.sellFood = (req, res) => {
             res.json({'code': 1, 'msg': '查询失败', 'data': err});
         } else {
             newData = data;
-            User.findByIdAndUpdate(req.body.userId,{
-                $inc:{
-                    money: addMoney
-                }
-            }, function (err,docs) {
-                if(err) {
-                    console.log('更新失败')
-                } else {
-                    console.log('金币更新成功')
-                    res.json({'code': 0, 'msg': '出售成功', 'data': newData});
-                }
-            });
-            
+            if (type == 1) {
+                User.findByIdAndUpdate(openId,{
+                    $inc:{
+                        money: price
+                    }}, (err,docs) => {
+                        if(err) {
+                            console.log('更新失败');
+                            return;
+                        } else {
+                            console.log('更新成功');
+                        }
+                });
+            } else {
+                User.findByIdAndUpdate(openId,{
+                    $inc:{
+                        gem: price
+                    }}, (err,docs) => {
+                        if(err) {
+                            console.log('更新失败');
+                            return;
+                        } else {
+                            console.log('更新成功');
+                        }
+                });
+            }
+            res.json({'code': 0, 'msg': '出售成功', 'data': newData});         
         }
     });
 }
