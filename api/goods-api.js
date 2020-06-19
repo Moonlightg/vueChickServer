@@ -73,51 +73,70 @@ exports.unlock = (req, res) => {
 
 // 购买商品
 exports.closingGood = (req, res) => {
-    console.log("req.body");
-    console.log(req.body);
     let openId = req.body.userId;
+    let name = req.body.name;
     let type = parseInt(req.body.type);
-    let price = parseInt(req.body.price) * parseInt(req.body.num);
+    let num = parseInt(req.body.num);
+    let price = parseInt(req.body.price) * num;
     const conditions = {
         openId: openId,
-        name: req.body.name
+        name: name
     };
     // 查询商品并更新数据
     userGood.findOneAndUpdate(conditions,{
         $inc:{
-            num: req.body.num
+            num: num
         }}, {new:true}, (err,data) => {
         if (err) {
             res.send({'code': 1, 'msg': '查询失败', 'data': err});
         } else {
-            if (type == 1) {
-                User.findByIdAndUpdate(openId,{
-                    $inc:{
-                        money: -price
-                    }}, (err,docs) => {
-                        if(err) {
-                            console.log('更新失败');
-                            return;
-                        } else {
-                            console.log('更新成功');
-                        }
-                });
+            console.log("测试下第一次购买商品");
+            console.log(data);
+            if (data == null) {
+                res.json({ 'code': 2, 'msg': '当前用户没有该商品需要创建'});
             } else {
-                User.findByIdAndUpdate(openId,{
-                    $inc:{
-                        gem: -price
-                    }}, (err,docs) => {
-                        if(err) {
-                            console.log('更新失败');
-                            return;
-                        } else {
-                            console.log('更新成功');
-                        }
-                });
+                deductMoney(openId,type,price);
+                res.json({ 'code': 0, 'msg': '购买成功', 'data': data });
             }
-            res.json({ 'code': 0, 'msg': '购买成功', 'data': data });
         }
     });
+}
+
+exports.firstClosingGood = (req, res) => {
+    let openId = req.body.userId;
+    let name = req.body.name;
+    let type = parseInt(req.body.type);
+    let num = parseInt(req.body.num);
+    let price = parseInt(req.body.price) * num;
+    Good.findOne({name:name},(err,data) => {
+        if (err) {
+            res.send({'code': 1, 'msg': '查询失败', 'data': err});
+        } else {
+            console.log('查询商品成功'+data);
+            const good = new userGood({
+                openId: openId,         
+                name: name,              
+                type: data.type,               
+                price: data.price,             
+                eatTime: data.eatTime,            
+                exp: data.exp,               
+                num: num,               
+                unlock: data.unlock,            
+                unlockPrice: data.unlockPrice,       
+                img: data.img         
+            });
+            good.save((err, docs) => {
+                if (err) {
+                    console.log('创建新物品失败');
+                    return;
+                } else {
+                    console.log('创建新物品成功');
+                    deductMoney(openId,type,price);
+                    res.json({ 'code': 0, 'data': docs });
+                }
+            });
+        }
+    })
 }
 
 // 出售物品
@@ -259,5 +278,80 @@ exports.postEgg = (req, res) => {
             }
         }
     })
+}
+
+
+/**
+ * newUserGood 用户添加新物品方法
+ * @param openId  用户关联id  类型String
+ * @param name    物品名称    类型String
+ * @param num     物品数量    类型number
+ */
+function newUserGood(openId,name,num){
+    let newData = {};
+    Good.findOne({name:name},(err,data) => {
+        if (err) {
+            res.send({'code': 1, 'msg': '查询失败', 'data': err});
+        } else {
+            console.log('查询商品成功'+data);
+            const good = new userGood({
+                openId: openId,         
+                name: name,              
+                type: data.type,               
+                price: data.price,             
+                eatTime: data.eatTime,            
+                exp: data.exp,               
+                num: num,               
+                unlock: data.unlock,            
+                unlockPrice: data.unlockPrice,       
+                img: data.img         
+            });
+            good.save((err, docs) => {
+                if (err) {
+                    console.log('创建新物品失败');
+                    return;
+                } else {
+                    console.log('创建新物品成功');
+                    //res.json({ 'code': 0, 'data': docs });
+                    newData = docs
+                }
+            });
+            res.json({ 'code': 0, 'data': newData });
+        }
+    })
+}
+
+/**
+ * deductMoney 扣除资产方法
+ * @param openId  用户关联id  类型String
+ * @param type    资产类型    类型number
+ * @param price   资产额度    类型number
+ */
+function deductMoney(openId,type,price) {
+    if (type == 1) {
+        User.findByIdAndUpdate(openId,{
+            $inc:{
+                money: -price
+            }}, (err,docs) => {
+                if(err) {
+                    console.log('更新失败');
+                    return;
+                } else {
+                    console.log('更新成功');
+                }
+        });
+    } else {
+        User.findByIdAndUpdate(openId,{
+            $inc:{
+                gem: -price
+            }}, (err,docs) => {
+                if(err) {
+                    console.log('更新失败');
+                    return;
+                } else {
+                    console.log('更新成功');
+                }
+        });
+    }
 }
 
