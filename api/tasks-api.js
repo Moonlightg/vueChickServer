@@ -51,6 +51,7 @@ exports.infoTasks = (req, res) => {
 
 // 领取任务奖励
 exports.postReceiveTask = (req, res) => {
+    let isUpdate = false;
     const ndate = {};
     const taskId = req.body.taskId;
     const newDate = moment().format('YYYY-MM-DD');
@@ -63,17 +64,26 @@ exports.postReceiveTask = (req, res) => {
         if (err) {
             res.send(err);
         } else {
+            for(var i = 0; i < comment.tasks.length; i++){
+                // 先判断领完该任务后还是否存在已完成未领取的任务
+                if(comment.tasks[i].taskId != taskId && comment.tasks[i].state == 1){
+                    isUpdate = true;
+                }
+            }
             //遍历comment.tasks，根据taskId找到想要修改的tasks
             for(var i = 0; i < comment.tasks.length; i++){
-                //如果找到了
-                if(comment.tasks[i].taskId == taskId){
+                if(comment.tasks[i].taskId == taskId) {
                     //将state修改为2,任务状态为已领取
                     comment.tasks[i].state = 2;
+                    comment.isUpdate = isUpdate;
                     //混合类型因为没有特定约束，
                     //因此可以任意修改，一旦修改了原型，
                     //则必须调用markModified()
                     //传入state，表示该属性类型发生变化
+                    console.log("测试任务");
+                    console.log(comment);
                     comment.markModified('state');
+                    comment.markModified('isUpdate');
                     //更新任务数据
                     const upTasks = new userTask(
                         comment
@@ -116,6 +126,11 @@ exports.postReceiveTask = (req, res) => {
 exports.addTaskCount = (req, res) => {
     console.log("显示任务需要更新的信息-----");
     console.log(req.body);
+    let tips = {
+        isOK: false,
+        text: ''
+    }; // 达成任务提示语
+    let ndata = {};
     const taskType = req.body.type; // 任务类型
     const count = parseInt(req.body.count);   // 任务增加进度次数
     const newDate = moment().format('YYYY-MM-DD');
@@ -141,6 +156,8 @@ exports.addTaskCount = (req, res) => {
                         comment.tasks[i].currCount = comment.tasks[i].needCount;
                         comment.tasks[i].state = 1;
                         comment.isUpdate = true;
+                        tips.isOK = true;
+                        tips.text = "完成了《"+comment.tasks[i].taskTitle+"》任务";
                     }
                 }
             }
@@ -152,7 +169,9 @@ exports.addTaskCount = (req, res) => {
                 if (err) {
                     res.send(err);
                 } else {
-                    res.json({'code': 0, 'msg': '任务进度更新成功！', 'data':docs});
+                    ndata.data = docs;
+                    ndata.tips = tips;
+                    res.json({'code': 0, 'msg': '任务进度更新成功！', 'data':ndata});
                 }
             });
         }
