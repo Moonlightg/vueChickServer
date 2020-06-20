@@ -27,7 +27,8 @@ exports.infoTasks = (req, res) => {
                         const usertask = new userTask({
                             openId: req.body.userId,
                             time: newDate,
-                            tasks: tasks
+                            tasks: tasks,
+                            isUpdate: true
                         });
                         usertask.save((err, docs) => {
                             if (err) {
@@ -115,7 +116,6 @@ exports.postReceiveTask = (req, res) => {
 exports.addTaskCount = (req, res) => {
     console.log("显示任务需要更新的信息-----");
     console.log(req.body);
-    const ndate = {}; // 新增一个对象保存新数据
     const taskType = req.body.type; // 任务类型
     const count = parseInt(req.body.count);   // 任务增加进度次数
     const newDate = moment().format('YYYY-MM-DD');
@@ -132,11 +132,15 @@ exports.addTaskCount = (req, res) => {
             //遍历comment.tasks，根据taskId找到想要修改的tasks
             for(var i = 0; i < comment.tasks.length; i++){
                 //查找任务类型相等的任务
-                if(comment.tasks[i].taskType == taskType){
+                if(comment.tasks[i].state == 1) {
+                    comment.isUpdate = true;
+                }
+                if(comment.tasks[i].taskType == taskType && comment.tasks[i].state == 0){
                     comment.tasks[i].currCount += count;
-                    if (comment.tasks[i].currCount >= comment.tasks[i].needCount && comment.tasks[i].state == 0) {
+                    if (comment.tasks[i].currCount >= comment.tasks[i].needCount) {
                         comment.tasks[i].currCount = comment.tasks[i].needCount;
                         comment.tasks[i].state = 1;
+                        comment.isUpdate = true;
                     }
                 }
             }
@@ -148,8 +152,7 @@ exports.addTaskCount = (req, res) => {
                 if (err) {
                     res.send(err);
                 } else {
-                    ndate.data = docs;
-                    res.json({'code': 0, 'msg': '任务进度更新成功！', 'data':ndate});
+                    res.json({'code': 0, 'msg': '任务进度更新成功！', 'data':docs});
                 }
             });
         }
