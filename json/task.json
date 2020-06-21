@@ -32,4 +32,16 @@
     "rewardMoney" : 800,
     "rewardGem" : 150,
     "__v" : 0
+},
+{
+    "_id" : ObjectId("5eb033268ffa000bd193c104"),
+    "taskId" : "task4",
+    "taskTitle" : "购买两次商品",
+    "taskType" : 2,
+    "state" : 0,
+    "currCount" : 0,
+    "needCount" : 2,
+    "rewardMoney" : 300,
+    "rewardGem" : 50,
+    "__v" : 0
 }
