@@ -227,6 +227,15 @@ exports.feeding = (req, res) => {
                     res.send({ 'code': 1, 'message': '投喂成功', 'data': obj });
                 }
             });
+            User.findByIdAndUpdate(req.body.userId,{
+                eat: true
+            }, function (err,ret) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    console.log('投喂状态更改成功')
+                }
+            });
         }
     });
 

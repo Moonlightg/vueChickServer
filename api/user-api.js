@@ -182,10 +182,18 @@ exports.postChick = (req, res) => {
             new: true
         }, (err,data) => {
         if (err) {
-            res.send({'code': 0, 'msg': '更新小鸡失败', 'data': err});
+            res.send({'code': 1, 'msg': '更新小鸡失败', 'data': err});
         } else {
-            console.log('查询小鸡成功'+data)
-            res.send({'code': 1, 'msg': '更新小鸡成功', 'data': data });
+            User.findByIdAndUpdate(req.body.userId,{
+                eat: false
+            }, function (err,ret) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    console.log('投喂状态更改成功')
+                }
+            });
+            res.send({'code': 0, 'msg': '更新小鸡成功', 'data': data });
         }
     })
 }
@@ -209,4 +217,16 @@ exports.postEggNum = (req, res) => {
             res.json({ 'code': 0, 'msg': '更新小鸡总产量成功', 'data': docs });
         }
     });
+}
+
+// 获取好友列表
+exports.getFriends = (req, res) => {
+    console.log(req.query.body);
+    User.find({},(err,data) => {
+        if(err) {
+            res.json({'code': 1, 'msg': '获取好友列表失败', 'data':err});
+        } else {
+            res.json({'code': 0, 'msg': '获取好友列表成功', 'data':data});
+        }
+    })
 }
