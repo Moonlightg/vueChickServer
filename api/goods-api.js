@@ -194,13 +194,16 @@ exports.sellFood = (req, res) => {
 
 // 投喂食物
 exports.feeding = (req, res) => {
+    console.log("测试投喂后返回的数据");
+    console.log(req.body);
     let chick = {};
     let obj = {};
     Chick.findOneAndUpdate({openId: req.body.userId},{
         $set:{
             eat: true,
             eatTime: req.body.eatTime,
-            eatEndTime: req.body.eatEndTime
+            eatEndTime: req.body.eatEndTime,
+            eatFood: req.body.name
         }},{
             new: true
         }, (err, docs) => {

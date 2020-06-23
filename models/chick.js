@@ -8,6 +8,7 @@ var chickSchema = new mongoose.Schema({
     eat: Boolean,               // 进食状态
     eatTime: Number,            // 喂食时长
     eatEndTime: String,         // 进食结束时间(时间戳)
+    eatFood: String,            // 最后进食食物(结束后清空)
     eggTotal: Number,           // 总产蛋量
     eggExps: Number,            // 当前鸡蛋经验
     eggNum: Number,             // 鸡蛋待拾取数量
