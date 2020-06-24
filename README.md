@@ -12,6 +12,7 @@
 | api/register|post|注册|
 | api/login   |post|登录|
 | api/getChick   |get|获取用户小鸡状态|
+| api/postChick  |post|更新用户小鸡信息|
 | api/getGoods   |get|获取默认商品列表|
 | api/getUserGoods|get|获取当前用户商品列表|
 | api/getUserFoods|get|获取用户背包食品列表|
@@ -20,7 +21,9 @@
 | api/postBdySkin|post|购买小鸡皮肤|
 | api/postUseSkin|post|使用小鸡皮肤|
 | api/unlock|post|解锁商品|
+| api/firstClosingGood|post|首次购买某个商品|
 | api/closingGood|post|购买商品|
+| api/sellFood|post|出售物品|
 | api/feeding|post|投喂食物|
 | api/postTasks|post|初始化每日任务|
 | api/postReceiveTask|post|领取任务奖励|
@@ -29,4 +32,6 @@
 | api/postEggNum|post|收获鸡蛋(总产量),更新小鸡信息|
 | api/addLog|post|添加动态日志|
 | api/getLog|get|获取动态日志|
+| api/getFriends|get|获取好友列表|
+| api/postProfile|post|更换用户头像|
 
