@@ -8,8 +8,9 @@ var userSchema = new mongoose.Schema({
     money: Number,        // 金币
     gem: Number,          // 宝石
     level: Number,        // 等级
+    img: String,          // 用户头像
     eat: Boolean,         // 进食状态
-    eatEndTime: Number    // 进食结束时间
+    eatEndTime: String    // 进食结束时间
 })
 
 // users 为指定的collections集合

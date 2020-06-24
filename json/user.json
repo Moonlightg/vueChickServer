@@ -7,6 +7,7 @@
     "money" : 5279,
     "gem" : 750,
     "level" : 1,
+    "img" : "profile.jpg",
     "eat" : false,
     "eatEndTime" : 0,
     "__v" : 0

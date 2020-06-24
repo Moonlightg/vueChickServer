@@ -231,7 +231,10 @@ exports.feeding = (req, res) => {
                 }
             });
             User.findByIdAndUpdate(req.body.userId,{
-                eat: true
+                $set: {
+                    eat: true,
+                    eatEndTime: req.body.eatEndTime
+                }
             }, function (err,ret) {
                 if(err) {
                     console.log(err)

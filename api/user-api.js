@@ -29,6 +29,7 @@ exports.register = (req, res) => {
                     money: 1000,
                     gem: 100,
                     level: 1,
+                    img: "profile.jpg",
                     eat: false,
                     eatEndTime: 0
                 });
@@ -224,12 +225,42 @@ exports.postEggNum = (req, res) => {
 
 // 获取好友列表
 exports.getFriends = (req, res) => {
-    console.log(req.query.body);
     User.find({},(err,data) => {
         if(err) {
             res.json({'code': 1, 'msg': '获取好友列表失败', 'data':err});
         } else {
+            updateFriends(data);
             res.json({'code': 0, 'msg': '获取好友列表成功', 'data':data});
         }
     })
+}
+
+// 更换用户头像
+exports.postProfile = (req, res) => {
+    console.log(req.body);
+    User.findByIdAndUpdate(req.body.userId,{
+        img: req.body.img
+    },{
+        new:true
+    }, (err,data) => {
+        if(err) {
+            console.log(err)
+        } else {
+            res.json({ 'code': 0, 'msg': '头像更换成功', 'data': data });
+        }
+    });
+}
+
+// 循环更新好友的进食状态
+function updateFriends (data) {
+    let loadDate = new Date().getTime();
+    data.forEach(item => {
+        if(item.eat) {
+            let isEat = item.eatEndTime - loadDate;
+            if (isEat <= 0) {
+              item.eat = false;
+            }
+        }
+    });
+    return data;
 }
