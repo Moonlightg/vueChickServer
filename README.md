@@ -34,4 +34,6 @@
 | api/getLog|get|获取动态日志|
 | api/getFriends|get|获取好友列表|
 | api/postProfile|post|更换用户头像|
+| api/setName|post|修改用户名称|
+
 

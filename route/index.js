@@ -34,6 +34,7 @@ router.post('/addLog',logApi.addLog) // 添加动态日志
 router.get('/getLog',logApi.getLog) // 获取动态日志
 router.get('/getFriends',userApi.getFriends) // 获取好友列表
 router.post('/postProfile',userApi.postProfile) // 更换用户头像
+router.post('/setName',userApi.setName) // 修改用户名称
 
 
 module.exports = router;

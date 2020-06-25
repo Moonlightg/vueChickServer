@@ -251,6 +251,22 @@ exports.postProfile = (req, res) => {
     });
 }
 
+// 修改用户名称
+exports.setName = (req, res) => {
+    console.log(req.body);
+    User.findByIdAndUpdate(req.body.userId,{
+        username: req.body.name
+    },{
+        new:true
+    }, (err,data) => {
+        if(err) {
+            console.log(err)
+        } else {
+            res.json({ 'code': 0, 'msg': '用户名修改成功', 'data': data });
+        }
+    });
+}
+
 // 循环更新好友的进食状态
 function updateFriends (data) {
     let loadDate = new Date().getTime();
