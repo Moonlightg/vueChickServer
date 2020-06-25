@@ -254,8 +254,10 @@ exports.postProfile = (req, res) => {
 // 修改用户名称
 exports.setName = (req, res) => {
     console.log(req.body);
+    let money = parseInt(req.body.money);
     User.findByIdAndUpdate(req.body.userId,{
-        username: req.body.name
+        $set:{"username" : req.body.name},
+        $inc:{"money": -money}
     },{
         new:true
     }, (err,data) => {
