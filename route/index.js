@@ -33,6 +33,7 @@ router.post('/postEggNum',userApi.postEggNum) // 收获鸡蛋(总产量),更新�
 router.post('/addLog',logApi.addLog) // 添加动态日志
 router.get('/getLog',logApi.getLog) // 获取动态日志
 router.get('/getFriends',userApi.getFriends) // 获取好友列表
+router.post('/setCurrUser',userApi.setCurrUser) // 获取当前好友资料
 router.post('/postProfile',userApi.postProfile) // 更换用户头像
 router.post('/setName',userApi.setName) // 修改用户名称
 

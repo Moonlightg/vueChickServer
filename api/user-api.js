@@ -235,6 +235,31 @@ exports.getFriends = (req, res) => {
     })
 }
 
+// 获取当前好友资料(返回用户信息与小鸡信息)
+exports.setCurrUser = (req, res) => {
+    console.log(req.body);
+    let ndate = {};
+    let openId = '';
+    let name = req.body.name;
+    console.log(name);
+    User.findOne({username:name},(err,data) => {
+        if(err) {
+            res.json({'code': 1, 'msg': '获取失败', 'data':err});
+        } else {
+            openId = data._id;
+            ndate.user = data;
+            Chick.findOne({openId:openId}, (err,docs) => {
+                if (err) {
+                    res.json({'code': 1, 'msg': '获取失败', 'data': err});
+                } else {
+                    ndate.chick = docs;
+                    res.json({ 'code': 0, 'msg': '获取成功', 'data': ndate });
+                }
+            });
+        }
+    })
+}
+
 // 更换用户头像
 exports.postProfile = (req, res) => {
     console.log(req.body);
