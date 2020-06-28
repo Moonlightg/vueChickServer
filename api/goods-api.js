@@ -102,6 +102,27 @@ exports.closingGood = (req, res) => {
     });
 }
 
+// 扣除物品
+exports.deductionFood = (req, res) => {
+    let openId = req.body.userId;
+    let name = req.body.name;
+    let num = parseInt(req.body.num);
+    const conditions = {
+        openId: openId,
+        name: name
+    };
+    userGood.findOneAndUpdate(conditions,{
+        $inc:{
+            num: -num
+        }}, {new:true}, (err,data) => {
+        if (err) {
+            res.send({'code': 1, 'msg': '扣除失败', 'data': err});
+        } else {  
+            res.json({ 'code': 0, 'msg': '扣除成功', 'data': data });
+        }
+    });
+}
+
 exports.firstClosingGood = (req, res) => {
     let openId = req.body.userId;
     let name = req.body.name;

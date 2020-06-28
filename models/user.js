@@ -3,8 +3,8 @@ var mongoose = require('mongoose')
 var userSchema = new mongoose.Schema({
     username: String,     // 用户名
     pass: String, 		  // 密码
-    update_date:String,   // 最近登录时间
-    register_date:String, // 注册时间
+    updateDate:String,   // 最近登录时间
+    registerDate:String, // 注册时间
     money: Number,        // 金币
     gem: Number,          // 宝石
     level: Number,        // 等级

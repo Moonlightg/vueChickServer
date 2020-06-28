@@ -24,8 +24,8 @@ exports.register = (req, res) => {
                 const user = new User({
                     username: req.body.username,
                     pass: req.body.pass,
-                    register_date: newDate,
-                    update_date: newDate,
+                    registerDate: newDate,
+                    updateDate: newDate,
                     money: 1000,
                     gem: 100,
                     level: 1,
@@ -98,7 +98,7 @@ exports.login = (req, res) => {
         username:req.body.username, 
         pass:req.body.pass
     },{
-        $set:{update_date:newDate}
+        $set:{updateDate:newDate}
     },{
         new: true
     }, (err, data) => {
@@ -186,20 +186,48 @@ exports.postChick = (req, res) => {
             new: true
         }, (err,data) => {
         if (err) {
-            res.send({'code': 1, 'msg': '更新小鸡失败', 'data': err});
+            res.json({'code': 1, 'msg': '更新小鸡失败', 'data': err});
         } else {
-            User.findByIdAndUpdate(req.body.userId,{
-                eat: false
-            }, function (err,ret) {
-                if(err) {
-                    console.log(err)
-                } else {
-                    console.log('投喂状态更改成功')
-                }
-            });
-            res.send({'code': 0, 'msg': '更新小鸡成功', 'data': data });
+            res.json({'code': 0, 'msg': '更新小鸡成功', 'data': data });
         }
     })
+}
+
+exports.postUser = (req, res) => {
+    const {
+        username,
+        pass,
+        registerDate,
+        updateDate,
+        money,
+        gem,
+        level,
+        img,
+        eat,
+        eatEndTime
+    } = req.body
+    User.findByIdAndUpdate(req.body.userId,{
+        $set:{
+            username,
+            pass,
+            registerDate,
+            updateDate,
+            money,
+            gem,
+            level,
+            img,
+            eat,
+            eatEndTime
+        }
+    },{
+        new: true
+    }, (err,data) => {
+        if(err) {
+            console.log(err)
+        } else {
+            res.json({'code': 0, 'msg': '用户信息更改成功', 'data': data });
+        }
+    });
 }
 
 // 更新小鸡总产量,重置可获取鸡蛋量为0
