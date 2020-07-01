@@ -316,6 +316,25 @@ exports.postEgg = (req, res) => {
     })
 }
 
+// 抽奖
+exports.postLuckDraw = (req, res) => {
+    console.log("req.body");
+    console.log(req.body);
+    const conditions = {
+        openId: req.body.userId
+    };
+    let ndata = {};
+    userGood.find(conditions,(err,data) => {
+        if(err) {
+            console.log(err)
+        } else {
+            ndata.docs = req.body;
+            ndata.data = data;
+            res.json({ 'code': 0, 'msg': '测试抽奖', 'data': ndata });
+        }
+    })
+}
+
 
 /**
  * newUserGood 用户添加新物品方法

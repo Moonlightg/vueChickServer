@@ -38,6 +38,7 @@ router.post('/setCurrUser',userApi.setCurrUser) // 获取当前好友资料
 router.post('/postProfile',userApi.postProfile) // 更换用户头像
 router.post('/deductionFood',goodsApi.deductionFood) // 扣除物品
 router.post('/setName',userApi.setName) // 修改用户名称
+router.post('/postLuckDraw',goodsApi.postLuckDraw) // 抽奖
 
 
 module.exports = router;
