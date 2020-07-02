@@ -104,6 +104,8 @@ exports.closingGood = (req, res) => {
 
 // 扣除物品
 exports.deductionFood = (req, res) => {
+    console.log("测试扣除抽奖券");
+    console.log(req.body);
     let openId = req.body.userId;
     let name = req.body.name;
     let num = parseInt(req.body.num);
@@ -116,8 +118,9 @@ exports.deductionFood = (req, res) => {
             num: -num
         }}, {new:true}, (err,data) => {
         if (err) {
-            res.send({'code': 1, 'msg': '扣除失败', 'data': err});
+            res.json({'code': 1, 'msg': '扣除失败', 'data': err});
         } else {  
+            console.log("扣除成功");
             res.json({ 'code': 0, 'msg': '扣除成功', 'data': data });
         }
     });
@@ -320,19 +323,46 @@ exports.postEgg = (req, res) => {
 exports.postLuckDraw = (req, res) => {
     console.log("req.body");
     console.log(req.body);
-    const conditions = {
-        openId: req.body.userId
-    };
+    let openId = req.body.userId;
+    let name = req.body.name;
+    let type = parseInt(req.body.type);
+    let num = parseInt(req.body.num);
     let ndata = {};
-    userGood.find(conditions,(err,data) => {
-        if(err) {
-            console.log(err)
-        } else {
-            ndata.docs = req.body;
-            ndata.data = data;
-            res.json({ 'code': 0, 'msg': '测试抽奖', 'data': ndata });
+    const conditions = {
+        openId: openId,
+        name: name
+    };
+    
+    if (type == 3) {
+        // 奖励类型为3(物品)
+        userGood.findOne(conditions,(err,data) => {
+            if(err) {
+                console.log(err)
+            } else {
+                if(data == null) {
+                    newUserGood(openId,name,num);
+                    res.json({ 'code': 1002, 'msg': '奖励添加成功'});
+                } else {
+                    userGood.findOneAndUpdate(conditions,{$inc:{"num": num}}, {new:true}, (err,docs) => {
+                        if (err) {
+                            res.json({'code': 1, 'msg': '奖励添加失败', 'data': err});
+                        } else {
+                            res.json({ 'code': 1002, 'msg': '奖励修改成功', 'data': docs });
+                        }
+                    });
+                }
+            }
+        })
+    } else {
+        // 奖励金币或宝石(type:1金币,type:2宝石)
+        addMoney(openId,type,num);
+        let obj = {
+            type: type,
+            price: num
         }
-    })
+        res.json({ 'code': 1003, 'msg': '奖励修改成功', 'data': obj });
+    }
+
 }
 
 
@@ -346,7 +376,8 @@ function newUserGood(openId,name,num){
     let newData = {};
     Good.findOne({name:name},(err,data) => {
         if (err) {
-            res.send({'code': 1, 'msg': '查询失败', 'data': err});
+            console.log("添加失败");
+            //res.send({'code': 1, 'msg': '查询失败', 'data': err});
         } else {
             console.log('查询商品成功'+data);
             const good = new userGood({
@@ -369,9 +400,10 @@ function newUserGood(openId,name,num){
                     console.log('创建新物品成功');
                     //res.json({ 'code': 0, 'data': docs });
                     newData = docs
+                    return newData;
                 }
             });
-            res.json({ 'code': 0, 'data': newData });
+            //res.json({ 'code': 0, 'data': newData });
         }
     })
 }
@@ -402,6 +434,40 @@ function deductMoney(openId,type,price) {
             }}, (err,docs) => {
                 if(err) {
                     console.log('更新失败');
+                    return;
+                } else {
+                    console.log('更新成功');
+                }
+        });
+    }
+}
+
+/**
+ * addMoney 增加资产方法
+ * @param openId  用户关联id  类型String
+ * @param type    资产类型    类型number
+ * @param price   资产额度    类型number
+ */
+function addMoney(openId,type,price) {
+    if (type == 1) {
+        User.findByIdAndUpdate(openId,{
+            $inc:{
+                money: price
+            }}, (err,docs) => {
+                if(err) {
+                    console.log(err);
+                    return;
+                } else {
+                    console.log('更新成功');
+                }
+        });
+    } else {
+        User.findByIdAndUpdate(openId,{
+            $inc:{
+                gem: price
+            }}, (err,docs) => {
+                if(err) {
+                    console.log(err);
                     return;
                 } else {
                     console.log('更新成功');
