@@ -1,0 +1,43 @@
+// 需要建立一个日志表,以为
+
+//(可以记录行为的操作有)解锁商品,购买商品,出售商品,任务领取,抽奖获取,投喂,
+
+// 
+// 1.最近七天消费情况(消费金币money,宝石gem)
+// 支出,收入,日志表
+{
+    data: '2020-07-10',
+    type: 1,
+    priceType: 1,
+    price: 400,
+    food:""
+}
+[{
+    data: '2020-07-10',
+    type:1,
+    list:[{
+        priceType: 1,
+        price: 400,
+        name:"购买"
+    },{
+        priceType: 1,
+        price: 400,
+        name:"解锁商品"
+    }]
+},{
+    data: '2020-07-10',
+    type:2,
+    list:[{
+        priceType: 1,
+        price: 400,
+        name:"出售"
+    },{
+        priceType: 1,
+        price: 400,
+        name:"抽奖"
+    },{
+        priceType: 1,
+        price: 400,
+        name:"任务"
+    }]
+}]

@@ -27,6 +27,20 @@
     "__v" : 0
 },
 {
+    "_id" : ObjectId("5eb033268ffa000bd192a109"),
+    "skinId" : 1,
+    "skinType" : "tribe",
+    "skinName" : "部落套装",
+    "skinState" : 0,
+    "price": 100,
+    "start_date" : "",
+    "end_date" : "",
+    "diff" : "",
+    "days" : 0,
+    "img" : "skin-suit-2.jpg",
+    "__v" : 0
+},
+{
     "_id" : ObjectId("5eb033268ffa000bd192a103"),
     "skinId" : 2,
     "skinType" : "default",
@@ -55,6 +69,20 @@
     "__v" : 0
 },
 {
+    "_id" : ObjectId("5eb033268ffa000bd192a107"),
+    "skinId" : 2,
+    "skinType" : "tribe",
+    "skinName" : "部落帽子",
+    "skinState" : 0,
+    "price": 50,
+    "start_date" : "",
+    "end_date" : "",
+    "diff" : "",
+    "days" : 0,
+    "img" : "skin-hat-2.jpg",
+    "__v" : 0
+},
+{
     "_id" : ObjectId("5eb033268ffa000bd192a105"),
     "skinId" : 3,
     "skinType" : "default",
@@ -80,5 +108,19 @@
     "diff" : "",
     "days" : 0,
     "img" : "skin-clothe-1.jpg",
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("5eb033268ffa000bd192a108"),
+    "skinId" : 3,
+    "skinType" : "tribe",
+    "skinName" : "部落上衣",
+    "skinState" : 0,
+    "price": 50,
+    "start_date" : "",
+    "end_date" : "",
+    "diff" : "",
+    "days" : 0,
+    "img" : "skin-clothe-2.jpg",
     "__v" : 0
 }
