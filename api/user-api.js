@@ -68,6 +68,7 @@ exports.register = (req, res) => {
                         const log = new Log({
                             openId: docs._id,
                             logList: [{
+                                log_type: 0 ,
                                 log_title: '注册账号',      // 日志描述
                                 log_date: newDate         // 日志时间
                             }]

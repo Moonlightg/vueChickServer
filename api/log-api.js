@@ -11,6 +11,7 @@ exports.addLog = (req, res) => {
     const update = {
         $push: {
             logList: {
+                log_type: req.body.log_type,
                 log_title: req.body.log_title,
                 log_date: newDate
             }
