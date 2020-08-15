@@ -1,0 +1,19 @@
+/*
+ * 学习栏目 learningProgram
+ * name :          题目种类名称
+ * type :          状态 (0未解锁,1已解锁)
+ * plan :          进度 %
+ * classifyList :  分类列表
+ */
+
+ {
+    "_id" : ObjectId("5eb033268ffa000cc100a100"),
+    "name" : "历史",
+    "type" : 1,
+    "plan" : 0,
+    "classifyList" : [{
+        "id": 1001,
+
+    }],
+    "__v" : 0
+}
