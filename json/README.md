@@ -98,47 +98,4 @@
 
 [面试笔记](https://github.com/imhuay/Algorithm_Interview_Notes-Chinese)
 
-## English
-
-[容易发音错误的单词](https://github.com/shimohq/chinese-programmer-wrong-pronunciation)
-
-[英语学习指南 ](https://github.com/yujiangshui/A-Programmers-Guide-to-English)
-
-[英语进阶指南](https://github.com/byoungd/English-level-up-tips-for-Chinese)
-
-## Blog
-
-[马蹄疾's blog](https://github.com/veedrin/horseshoe)
-
-[木易杨's blog](https://github.com/yygmind/blog)
-
-[muyunyun's blog](https://github.com/MuYunyun/blog)
-
-[冴羽's blog](https://github.com/mqyqingfeng/Blog)
-
-## Roadmap
-
-[后端架构师技术图谱](https://github.com/xingshaocheng/architect-awesome)
-
-[developer-roadmap](https://github.com/kamranahmedse/developer-roadmap)
-
-[程序员技能图谱](https://github.com/TeamStuQ/skill-map)
-
-[Full Stack Developer Tutorial](https://github.com/frank-lam/fullstack-tutorial)
-
-[面试必备基础知识](https://github.com/CyC2018/CS-Notes)
-
-## Applications' List
-
-[my-mac-os](https://github.com/nikitavoloboev/my-mac-os)
-
-[open-source-mac-os-apps](https://github.com/serhii-londar/open-source-mac-os-apps)
-
-[Awesome Windows](https://github.com/Awesome-Windows/Awesome)
-
-## Others
-
-[Student Resources](https://github.com/ivmm/Student-resources)
-
-[编程中文书籍](https://github.com/justjavac/free-programming-books-zh_CN)
 
