@@ -3,7 +3,7 @@
  * name :          题目种类名称
  * type :          状态 (0未解锁,1已解锁)
  * plan :          进度 %
- * classifyList :  分类列表
+ * classifyList :  题目列表
  */
 
  {
@@ -13,7 +13,10 @@
     "plan" : 0,
     "classifyList" : [{
         "id": 1001,
-
+        "name": "请在下列四个选项中选出一个正确选项",
+        "answer": ["mvvm为后端框架", "npm是一个包管理器", "行内元素包含块级元素", "vuex不适用于大型网站"],
+        "correctAnswer": "npm是一个包管理器",
+        "correct": ""
     }],
     "__v" : 0
 }
