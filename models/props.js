@@ -14,5 +14,5 @@ var propsSchema = new mongoose.Schema({
     img: String        			// 图片
 })
 
-// goods 为指定的collections集合
+// props 为指定的collections集合
 module.exports = mongoose.model('Props', goodsSchema, 'props')

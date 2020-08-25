@@ -18,6 +18,7 @@ router.get('/getGoods',goodsApi.getGoods) //获取默认商品列表
 router.get('/getUserGoods',goodsApi.getUserGoods) //获取用户商品列表
 router.get('/getUserFoods',goodsApi.getUserFoods) //获取用户背包食品列表
 router.get('/getUserSkins',skinsApi.getUserSkins) //获取小鸡皮肤数据
+router.get('/getUserStudy',studyApi.getUserStudy) // 获取当前用户学习进度 (未完成)
 router.post('/infoUserSkins',skinsApi.infoUserSkins) //初始化当前用户小鸡皮肤数据
 router.post('/postBdySkin',skinsApi.postBdySkin) // 购买皮肤
 router.post('/postUseSkin',skinsApi.postUseSkin) // 使用皮肤
