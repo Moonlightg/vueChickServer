@@ -8,6 +8,7 @@ const goodsApi = require("../api/goods-api");
 const tasksApi = require("../api/tasks-api");
 const logApi = require("../api/log-api");
 const skinsApi = require("../api/skins-api");
+const studyApi = require("../api/study-api");
 
 router.post('/register',userApi.register) //注册
 router.post('/login',userApi.login) //登录
