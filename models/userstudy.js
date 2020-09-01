@@ -6,12 +6,7 @@ var userStudySchema = new mongoose.Schema({
     name: String,               // 题目种类名称
     finish: Boolean,            // 是否完成 (true/false)
     plan: Number,               // 进度 %
-    chapterList: [],            // 进食时间 (单位毫秒)
-    exp: Number,                // 增加小鸡经验
-    num: Number,                // 库存数量
-    unlock: Number,             // 0为待解锁，1为已解锁
-    unlockPrice: Number,        // 解锁金额
-    img: String        			// 图片
+    chapterList: []            // 题目分类
 })
 
 // userstudy 为指定的collections集合
