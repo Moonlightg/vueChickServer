@@ -18,12 +18,8 @@ exports.getUserStudy = (req, res) => {
                     }else{
                         console.log('查询Study成功'+studys)
                         const userstudy = new UserStudy({
-                            openId: req.body.userId,
-                            id: studys.id,             
-						    name: studys.name,               
-						    finish: studys.finish,        
-						    plan: studys.plan,               
-						    chapterList: studys.chapterList          
+                            openId: req.query.userId,              
+						    itemList: studys          
                         });
                         userstudy.save((err, docs) => {
                             if (err) {

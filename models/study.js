@@ -5,7 +5,7 @@ var studySchema = new mongoose.Schema({
     name: String,               // 题目种类名称
     finish: Boolean,            // 是否完成 (true/false)
     plan: Number,               // 进度 %
-    chapterList: []             // 题目分类列表
+    classifyList: Array          // 题目分类列表
 })
 
 // study 为指定的collections集合
