@@ -1,42 +1,45 @@
 /*
  * 学习栏目 learningProgram
- * id :                 题目种类id
- * name :               题目种类名称
- * finish :             是否完成 (true/false)
- * plan :               进度 %
- * chapterList :        题目章节列表
- * chapterList.name :   题目章节名称
- * chapterList.plan :   题目章节进度
- * chapterList.finish : 题目章节是否完成 (true/false)
- * chapterList.unlock : 题目章节解锁状态(0未解锁,1已解锁)
- * chapterList.rewardMoney : 奖励金币
- * chapterList.rewardGem :   奖励宝石
+ * topic_id :                 题目种类id
+ * active_topic_id :               题目种类名称
+ * type :             是否完成 (true/false)
+ * topic_name :               进度 %
+ * active_id :        题目章节列表
+ * active_title :   题目章节名称
+ * active_topic_phase :   题目章节进度
+ * active_start_time : 题目章节是否完成 (true/false)
+ * active_end_time : 题目章节解锁状态(0未解锁,1已解锁)
+ * topic_answer : 奖励金币
  */
 {
-"itemNumber": 1,
-"itemName": "请在下列四个选项中选出一个正确选项",
-"itemDetail": [
-  {
-    "itemID": 1,
-    "answer": ["mvvm为后端框架", "npm是一个包管理器", "行内元素包含块级元素", "vuex不适用于大型网站"],
-    "correctAnswer": "npm是一个包管理器"
-  }, {
-    "itemID": 2,
-    "answer": ["3*8=24", "5+7=11", "lg10=10", "tan90°=1"],
-    "correctAnswer": "3*8=24"
-  }, {
-    "itemID": 3,
-    "answer": ["宁波属于江苏省", "天津属于河北省", "湖州属于浙江省", "襄阳属于福建省"],
-    "correctAnswer": "湖州属于浙江省"
-  }, {
-    "itemID": 4,
-    "answer": ["three.js作者：尤雨溪", "react.js作者：尤雨溪", "egg.js作者：尤雨溪", "Vue.js作者：尤雨溪"],
-    "correctAnswer": "Vue.js作者：尤雨溪"
-  }, {
-    "itemID": 5,
-    "answer": ["黑盒测试也称为结构测试", "二叉树为非线性结构", "JavaScript是静态语言", "===是严格相等运算符"],
-    "correctAnswer": "二叉树为非线性结构"
-  }
-],
-"answer": []
+    "topic_id": 20,
+    "active_topic_id": 4,
+    "type": "ONE",
+    "topic_name": "1",
+    "active_id": 1,
+    "active_title": "1. 1993年1月18日，联合国第47次大会通过了第193号决议，决定从1993年起，确定每年的_______定为“世界水日”。 考虑到“世界水日”和“中国水周”的主旨和内容基本相同，故从1994年起，“中国水周”的时间为每年________。",
+    "active_topic_phase": "第一周",
+    "active_start_time": "1479139200",
+    "active_end_time": "1482163200",
+    "topic_answer": [{
+        "topic_answer_id": 1,
+        "topic_id": 20,
+        "answer_name": "A、3月22日、3月22日至28日；",
+        "is_standard_answer": 1
+    }, {
+        "topic_answer_id": 2,
+        "topic_id": 20,
+        "answer_name": "B、3月28日、3月28日至4月2日；",
+        "is_standard_answer": 0
+    }, {
+        "topic_answer_id": 3,
+        "topic_id": 20,
+        "answer_name": "C、6月8日、6月8日至15日；",
+        "is_standard_answer": 0
+    }, {
+        "topic_answer_id": 4,
+        "topic_id": 20,
+        "answer_name": "D、7月1日、7月1日至8日；",
+        "is_standard_answer": 0
+    }]
 }
