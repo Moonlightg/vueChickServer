@@ -1,7 +1,11 @@
 /*
- * 学习栏目 learningProgram
- * topic_id :                 题目种类id
- * active_topic_id :               题目种类名称
+ * 题目
+ * openId:                     用户唯一标示,_id
+ * answer_subject:             学科
+ * answer_grade:               年级
+ * answer_list:                题目列表
+ *   topic_id :                题目种类id
+ *   active_topic_id :               题目种类名称
  * type :             是否完成 (true/false)
  * topic_name :               进度 %
  * active_id :        题目章节列表
@@ -10,7 +14,16 @@
  * active_start_time : 题目章节是否完成 (true/false)
  * active_end_time : 题目章节解锁状态(0未解锁,1已解锁)
  * topic_answer : 奖励金币
+
+ single: '单选题',
+                    multiple: '多选题',
+                    fill: '填空题',
+                    aq: '问答题',
+                    judgment: '判断题',
+                    join: '连线题',
+                    code: '编程题' // Attachment
  */
+ 
 {
     "topic_id": 20,
     "active_topic_id": 4,
