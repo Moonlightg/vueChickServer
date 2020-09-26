@@ -9,6 +9,9 @@ const jwt = require('jsonwebtoken')
 const SECRET = 'ewgfvwergvwsgw5454gsrgvsvsd'
 
 
+var ObjectID = require('mongodb').ObjectID;
+
+
 // 注册
 exports.register = (req, res) => {
     const newDate = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -130,6 +133,18 @@ exports.login = (req, res) => {
 }
 
 // 获取用户信息
+exports.getUserInfo = (req, res) => {
+    console.log("*******************");
+    console.log(req.query);
+    console.log("*******************");
+    User.findOne({"_id": ObjectID(req.query.userId)},(err,data) => {
+        if (err) {
+            res.send({'code': 0, 'msg': '查询失败', 'data': err});
+        } else {
+            res.send({'code': 1, 'msg': '查找用户成功', 'data': data });
+        }
+    })
+}
 // router.get('/users/info',(req, res) => {
 //     res.json({data: req.body});
 // });

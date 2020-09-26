@@ -12,6 +12,7 @@ const studyApi = require("../api/study-api");
 
 router.post('/register',userApi.register) //注册
 router.post('/login',userApi.login) //登录
+router.get('/getUserInfo',userApi.getUserInfo) // 刷新页面获取用户相关信息
 router.get('/getChick',userApi.getChick) // 获取用户小鸡状态
 router.post('/postChick',userApi.postChick) // 更新小鸡信息
 router.post('/postUser',userApi.postUser) // 更新用户资料
