@@ -6,6 +6,9 @@
 
 ## node app.js
 
+## 因为热爱,所以制作(慢慢雕琢)
+## 每天能睁开眼睛,就坚持提交几行垃圾代码(请多指教)
+
 ## 接口列表
 | 接口        | 类型    | 描述    |
 | --------   | ----: | :----:  |
@@ -39,5 +42,6 @@
 | api/postProfile|post|更换用户头像|
 | api/deductionFood|post|扣除物品|
 | api/setName|post|修改用户名称|
+| api/addBarrage|post|添加留言|
 
 

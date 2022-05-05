@@ -42,6 +42,11 @@ router.post('/postProfile',userApi.postProfile) // 更换用户头像
 router.post('/deductionFood',goodsApi.deductionFood) // 扣除物品
 router.post('/setName',userApi.setName) // 修改用户名称
 router.post('/postLuckDraw',goodsApi.postLuckDraw) // 抽奖
+router.post('/addBarrage',userApi.addBarrage) // 添加留言
+// 后台接口
+router.post('/adminLogin',userApi.adminLogin) //登录
+router.get('/getUserList',userApi.getUserList) // 获取用户列表
+
 
 
 module.exports = router;

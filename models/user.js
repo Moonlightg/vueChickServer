@@ -10,7 +10,12 @@ var userSchema = new mongoose.Schema({
     level: Number,        // 等级
     img: String,          // 用户头像
     eat: Boolean,         // 进食状态
-    eatEndTime: String    // 进食结束时间
+    eatEndTime: String,    // 进食结束时间
+    barrage: [{
+      id: Number,
+      avatar: String,
+      msg: String
+    }]    // 留言信息
 })
 
 // users 为指定的collections集合

@@ -2,6 +2,7 @@
 // var router = express.Router()
 const moment = require('moment')
 const User = require('../models/user')
+const AdminUser = require('../models/adminUser')
 const Chick = require('../models/chick')
 const Log = require('../models/log')
 const jwt = require('jsonwebtoken')
@@ -58,7 +59,7 @@ exports.register = (req, res) => {
                             eggBase: 50,
                             eggAddExps: 0,
                             skinHat: 'Hatdefault',
-                            skinClothes: 'Clothesdefault'       
+                            skinClothes: 'Clothesdefault'
                         });
                         chick.save((err, chick) => {
                             if (err) {
@@ -99,7 +100,7 @@ exports.login = (req, res) => {
     let chick = {};
     // 判断用户名和密码是否和数据库的相同
     User.findOneAndUpdate({
-        username:req.body.username, 
+        username:req.body.username,
         pass:req.body.pass
     },{
         $set:{updateDate:newDate}
@@ -127,7 +128,7 @@ exports.login = (req, res) => {
                     }
                 })
             }
-            
+
         }
     });
 }
@@ -163,41 +164,41 @@ exports.getChick = (req, res) => {
 // 更新小鸡状态
 exports.postChick = (req, res) => {
     const {
-        openId,             
-        exp,                
-        upgradeExp,       
-        level,             
-        eat,               
-        eatTime,            
-        eatEndTime, 
+        openId,
+        exp,
+        upgradeExp,
+        level,
+        eat,
+        eatTime,
+        eatEndTime,
         eatFood,
-        eggTotal,        
-        eggExps,            
-        eggNum,             
-        eggProgress,        
-        eggBase,            
+        eggTotal,
+        eggExps,
+        eggNum,
+        eggProgress,
+        eggBase,
         eggAddExps,
         skinHat,
-        skinClothes           
+        skinClothes
         } = req.body
     Chick.findOneAndUpdate({openId},{
         $set:{
-            openId,             
-            exp,                
-            upgradeExp,       
-            level,             
-            eat,               
-            eatTime,            
-            eatEndTime, 
+            openId,
+            exp,
+            upgradeExp,
+            level,
+            eat,
+            eatTime,
+            eatEndTime,
             eatFood,
-            eggTotal,        
-            eggExps,            
-            eggNum,             
-            eggProgress,        
-            eggBase,            
+            eggTotal,
+            eggExps,
+            eggNum,
+            eggProgress,
+            eggBase,
             eggAddExps,
             skinHat,
-            skinClothes 
+            skinClothes
         }},{
             new: true
         }, (err,data) => {
@@ -338,6 +339,43 @@ exports.setName = (req, res) => {
     });
 }
 
+// 新增用户留言
+exports.addBarrage = (req, res) => {
+  console.log('查看留言传过来后台的数据：');
+  // console.log(req);
+  console.log(req);
+  console.log('----------------------------------------');
+  console.log(req.body);
+  console.log('----------------------------------------');
+  console.log(req.body.uid);
+  const obj = {
+    id: parseInt(req.body.id),
+    avatar: req.body.avatar,
+    msg: req.body.msg
+  }
+  console.log(obj);
+
+  const conditions = {
+    _id: req.body.uid
+  };
+  const update = {
+    $push: {
+      barrage: obj
+    }
+  };
+  const options = {
+    new: true,
+    upsert: true
+  };
+  User.findByIdAndUpdate(conditions, update, options, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json({ "code": 0, 'msg': '添加动态成功', "data":data });
+    }
+  });
+}
+
 // 循环更新好友的进食状态
 function updateFriends (data) {
     let loadDate = new Date().getTime();
@@ -350,4 +388,47 @@ function updateFriends (data) {
         }
     });
     return data;
+}
+
+
+// 后台接口
+
+// admin登录
+exports.adminLogin = (req, res) => {
+    let newDate = moment().format('YYYY-MM-DD HH:mm:ss');
+    let user = {};
+    // 判断用户名和密码是否和数据库的相同
+    AdminUser.findOneAndUpdate({
+        username:req.body.username,
+        pass:req.body.pass
+    },{
+        $set:{updateDate:newDate}
+    },{
+        new: true
+    }, (err, data) => {
+        if (err) {
+            return res.send({'status': 1002, 'msg': '查询失败', 'data': err});
+        } else {
+            if(data === null) {
+                res.send({'status': 422, 'msg': '后台用户名或密码错误!'});
+            } else {
+                // 生成token
+                const token = jwt.sign({
+                    id:String(data._id)
+                },SECRET);
+                user = data;
+                res.send({ 'code': 0, 'msg': '登录后台成功', user, token});
+            }
+        }
+    });
+}
+// 获取用户列表
+exports.getUserList = (req, res) => {
+    User.find({},(err,data) => {
+        if(err) {
+            res.json({'code': 1, 'msg': '获取用户列表失败', 'data':err});
+        } else {
+            res.json({'code': 0, 'msg': '获取用户列表成功', 'data':data});
+        }
+    })
 }
