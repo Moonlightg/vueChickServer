@@ -34,7 +34,7 @@ mongoose.connection.on('disconnected',()=>{
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 //这个要放在所有的use前面，解析我们的post请求数据
-app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.urlencoded({ extended: true}))
 
 // 解决跨域
 app.all('*', function(req, res, next) {
@@ -53,7 +53,7 @@ app.use('/api', router) // 将路由注册到/api的路径下
 
 var port = process.env.PORT || 3000
 
-// 定义服务器启动端口 
+// 定义服务器启动端口
 app.listen(port)
 console.log('app is listening on port: ' + port)
 

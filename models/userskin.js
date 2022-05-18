@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 
-var taskListSchema = new mongoose.Schema({
+var skinListSchema = new mongoose.Schema({
 	openId: String,             // 用户唯一标示,_id
 	skinList: [
 		{
@@ -10,4 +10,4 @@ var taskListSchema = new mongoose.Schema({
 	]
 })
 
-module.exports = mongoose.model('Userskin', taskListSchema, 'userskins')
+module.exports = mongoose.model('Userskin', skinListSchema, 'userskins')

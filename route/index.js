@@ -9,6 +9,7 @@ const tasksApi = require("../api/tasks-api");
 const logApi = require("../api/log-api");
 const skinsApi = require("../api/skins-api");
 const studyApi = require("../api/study-api");
+const gachaApi = require("../api/gacha-api");
 
 router.post('/register',userApi.register) //注册
 router.post('/login',userApi.login) //登录
@@ -46,7 +47,9 @@ router.post('/addBarrage',userApi.addBarrage) // 添加留言
 // 后台接口
 router.post('/adminLogin',userApi.adminLogin) //登录
 router.get('/getUserList',userApi.getUserList) // 获取用户列表
-
+// 原神抽卡
+router.get('/getUserGacha',gachaApi.getUserGacha) //获取用户抽卡统计信息
+router.post('/setUserGacha',gachaApi.setUserGacha) //添加用户抽卡统计信息
 
 
 module.exports = router;
