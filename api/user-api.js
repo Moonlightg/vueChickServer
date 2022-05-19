@@ -31,7 +31,7 @@ exports.register = (req, res) => {
                     registerDate: newDate,
                     updateDate: newDate,
                     money: 1000,
-                    gem: 100,
+                    gem: 6480,
                     level: 1,
                     img: "profile.jpg",
                     eat: false,
